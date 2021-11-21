@@ -20,9 +20,17 @@ namespace Game.Commands.MoveCommands
             }
         }
 
-        private bool ExecutionCodition(GameObject gameObject)
+        /// <summary>
+        /// Expresses the condition to perform the action of the Command.
+        /// In this case, it makes sure the player can't turn the snake's head in opposite directions.
+        /// </summary>
+        /// <param name="gameObject"></param>
+        /// <returns>Evaluated Condition</returns>
+        protected bool ExecutionCodition(GameObject gameObject)
         {
-            return true;
+            var moveScript = gameObject.GetComponent<HeadMovement>();
+            var moveDirection = moveScript.MoveDirection;
+            return MoveDirection != moveDirection && moveDirection != MoveDirection * (-1);
         }
 
         private void SetSprite(GameObject gameObject)
