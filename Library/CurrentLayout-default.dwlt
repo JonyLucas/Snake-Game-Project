@@ -117,10 +117,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 939
-  m_MinSize: {x: 709, y: 492}
-  m_MaxSize: {x: 18004, y: 14042}
+  m_MinSize: {x: 708, y: 492}
+  m_MaxSize: {x: 18003, y: 14042}
   vertical: 0
-  controlID: 68
+  controlID: 117
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 442}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 69
+  controlID: 118
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -165,8 +165,8 @@ MonoBehaviour:
     y: 0
     width: 982
     height: 425
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -194,8 +194,8 @@ MonoBehaviour:
     y: 425
     width: 982
     height: 514
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 102
+  controlID: 27
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -299,8 +299,8 @@ MonoBehaviour:
     y: 0
     width: 548
     height: 939
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 23}
   m_Panes:
   - {fileID: 23}
@@ -459,9 +459,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 2.6685388, y: 2.7025118, z: -0.5350456}
+    m_Target: {x: -0.075923145, y: 0.020546531, z: -1.1671438}
     speed: 2
-    m_Value: {x: 2.6685388, y: 2.7025118, z: -0.5350456}
+    m_Value: {x: -0.075923145, y: 0.020546531, z: -1.1671438}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -512,9 +512,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 3.3119285
+    m_Target: 1.1714151
     speed: 2
-    m_Value: 3.3119285
+    m_Value: 1.1714151
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1572,7 +1572,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 24374
+  m_LastSelectedObjectID: 22746
 --- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1601,9 +1601,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: b25e0000
+      m_SelectedIDs: 825a0000
       m_LastClickedID: 0
-      m_ExpandedIDs: 04f4ffff48fbffff
+      m_ExpandedIDs: 48fbffffd2580000d6580000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1664,7 +1664,8 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders: []
+    m_Folders:
+    - Assets/Scripts/Player Scripts/Movement
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
@@ -1678,7 +1679,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: c81b0300
     m_LastClickedID: 203720
-    m_ExpandedIDs: 0000000000590000
+    m_ExpandedIDs: 00000000285900002a5900002c5900002e5900003059000032590000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1703,24 +1704,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 0}
+    scrollPos: {x: 0, y: 60}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff0000000000590000105a00001a5a00005a5a0000625a0000ba5a0000
+    m_ExpandedIDs: ffffffff00000000285900002a5900002c5900002e5900003059000032590000645900006c5900006e590000705900005e5a00009c7700002e7a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: BaseCommand
-      m_OriginalName: BaseCommand
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 24242
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_SearchString: 
