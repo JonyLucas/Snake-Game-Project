@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5278bc12711e5a4a8b3c55565e5b825, type: 3}
   m_Name: Player Move Data
   m_EditorClassIdentifier: 
-  _speed: 100
-  _stopMove: 0.2
+  _speed: 125
+  _stopMove: 0.4
   _xLimit: 94
   _yLimit: 55

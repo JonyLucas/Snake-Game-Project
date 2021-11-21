@@ -1,3 +1,4 @@
+using Game.Player.Movement;
 using System;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace Game.Commands.MoveCommands
             {
                 SetSprite(gameObject);
                 SetDirection(gameObject);
+                SetHeadPosition(gameObject);
             }
         }
 
@@ -44,5 +46,7 @@ namespace Game.Commands.MoveCommands
             var moveScript = gameObject.GetComponent<HeadMovement>();
             moveScript.MoveDirection = MoveDirection;
         }
+
+        protected abstract void SetHeadPosition(GameObject gameObject);
     }
 }

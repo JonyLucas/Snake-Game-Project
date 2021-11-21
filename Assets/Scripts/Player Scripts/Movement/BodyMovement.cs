@@ -1,18 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BodyMovement : MonoBehaviour
+namespace Game.Player.Movement
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BodyMovement : BaseMovement
     {
-        
-    }
+        protected override void CheckSpaceLimits()
+        {
+            if (Mathf.Abs(transform.localPosition.x) > XLimit)
+            {
+                var xPosition = transform.localPosition.x * (-1);
+                var yPosition = transform.localPosition.y;
+                transform.localPosition = new Vector2(xPosition, yPosition);
+            }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            if (Mathf.Abs(transform.localPosition.y) > YLimit)
+            {
+                var xPosition = transform.localPosition.x;
+                var yPosition = transform.localPosition.y * (-1);
+                transform.localPosition = new Vector2(xPosition, yPosition);
+            }
+        }
+
+        protected override void SetNextBodyBlock()
+        {
+        }
+
+        protected override void SetPreviousBodyBlock()
+        {
+        }
     }
 }
