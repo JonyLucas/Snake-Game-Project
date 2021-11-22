@@ -1,3 +1,4 @@
+using Game.Extensions;
 using System.Collections;
 using UnityEngine;
 
@@ -23,6 +24,9 @@ namespace Game.Player.Movement
         private float _xLimit;
         private float _yLimit;
 
+        public float StopMove
+        { get { return _stopMove; } }
+
         public float XLimit
         { get { return _xLimit; } }
 
@@ -34,18 +38,7 @@ namespace Game.Player.Movement
         public Vector2 MoveDirection
         {
             get { return _moveDirection; }
-            set
-            {
-                value = value.normalized;
-                if (Mathf.Abs(value.x) > Mathf.Abs(value.y))
-                {
-                    _moveDirection = value.x > 0 ? Vector2.right : Vector2.left;
-                }
-                else
-                {
-                    _moveDirection = value.y > 0 ? Vector2.up : Vector2.down;
-                }
-            }
+            set { _moveDirection = value.GetProminentVectorComponent(); }
         }
 
         private void Awake()
