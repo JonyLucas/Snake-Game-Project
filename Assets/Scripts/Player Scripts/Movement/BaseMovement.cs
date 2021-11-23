@@ -1,5 +1,6 @@
 using Game.Extensions;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace Game.Player.Movement
@@ -11,13 +12,8 @@ namespace Game.Player.Movement
 
         protected GameObject _nextBodyBlock;
 
-        protected GameObject _previousBodyBlock;
-
         public GameObject NextBodyBlock
         { get { return _nextBodyBlock; } }
-
-        public GameObject PreviousBodyBlock
-        { get { return _previousBodyBlock; } }
 
         private float _speed;
         private float _stopMove;
@@ -50,12 +46,9 @@ namespace Game.Player.Movement
             _yLimit = _moveData.YLimit;
 
             SetNextBodyBlock();
-            SetPreviousBodyBlock();
         }
 
         protected abstract void SetNextBodyBlock();
-
-        protected abstract void SetPreviousBodyBlock();
 
         private void Start()
         {
@@ -73,11 +66,47 @@ namespace Game.Player.Movement
             while (true)
             {
                 yield return new WaitForSeconds(_stopMove);
-                transform.Translate(_moveDirection * _speed * Time.deltaTime);
+                Translate(); //transform.Translate(_moveDirection, Space.Self) Also Works
                 CheckSpaceLimits();
             }
         }
 
-        protected abstract void CheckSpaceLimits();
+        private void Translate()
+        {
+            var newPosition = transform.localPosition;
+            var speedVector = _moveDirection * _speed;
+            newPosition.x += speedVector.x;
+            newPosition.y += speedVector.y;
+            transform.localPosition = newPosition;
+        }
+
+        private void CheckSpaceLimits()
+        {
+            if (Mathf.Abs(transform.localPosition.x) > XLimit)
+            {
+                var xPosition = transform.localPosition.x * (-1);
+                var yPosition = transform.localPosition.y;
+                transform.localPosition = new Vector2(xPosition, yPosition);
+            }
+
+            if (Mathf.Abs(transform.localPosition.y) > YLimit)
+            {
+                var xPosition = transform.localPosition.x;
+                var yPosition = transform.localPosition.y * (-1);
+                transform.localPosition = new Vector2(xPosition, yPosition);
+            }
+        }
+
+        protected GameObject GetFirstSnakeElementByTag(string tag)
+        {
+            // Gets the player object that contains this gameObject's transform.
+            var snakeTransform = GameObject.FindGameObjectsWithTag("Player")
+                .FirstOrDefault(x => x.transform.GetComponentsInChildren<Transform>().Contains(transform));
+
+            // Gets the first child with the specified tag.
+            return snakeTransform?.transform
+                .GetComponentsInChildren<Transform>()
+                .FirstOrDefault(x => x.tag == tag)?.gameObject;
+        }
     }
 }

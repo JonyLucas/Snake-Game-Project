@@ -67,11 +67,11 @@
     <Compile Include="Assets\Scripts\Scriptable Objects\PlayerMoveData.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\SnakeHealth.cs" />
     <Compile Include="Assets\Scripts\Commands\MoveCommands\MovementCommand.cs" />
+    <Compile Include="Assets\Scripts\Extensions\VectorExtension.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\Movement\BodyMovement.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\Movement\HeadMovement.cs" />
-    <Compile Include="Assets\Scripts\Player Scripts\Movement\TurnBodyBlock.cs" />
+    <Compile Include="Assets\Scripts\Player Scripts\Movement\TurningBodyBlock.cs" />
     <Compile Include="Assets\Scripts\Commands\MoveCommands\TurnLeftCommand.cs" />
-    <Compile Include="Assets\Scripts\Extensions\VectorExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

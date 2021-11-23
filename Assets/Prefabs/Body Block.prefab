@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2004648392446483782}
   - component: {fileID: 2004648392446483783}
   - component: {fileID: 1656401045}
+  - component: {fileID: 2004648394033607124}
   m_Layer: 0
   m_Name: Body Block
   m_TagString: SnakeBodyBlock
@@ -110,3 +111,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10, y: 5}
   m_EdgeRadius: 0
+--- !u!114 &2004648394033607124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004648392446483777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e87f94228832af469f6c92e29fc8797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveData: {fileID: 11400000, guid: 2920be906ea1aad4a9827910a4e0f472, type: 2}

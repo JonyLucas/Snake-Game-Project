@@ -2,7 +2,7 @@ using Game.Extensions;
 using Game.Player.Movement;
 using UnityEngine;
 
-public class TurnBodyBlock : MonoBehaviour
+public class TurningBodyBlock : MonoBehaviour
 {
     [SerializeField]
     private Sprite _newBodyBlockSprite;
