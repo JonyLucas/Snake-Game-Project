@@ -10,25 +10,13 @@ namespace Game.Player.Movement
         [SerializeField]
         private PlayerMoveData _moveData;
 
-        protected GameObject _nextBodyBlock;
-
-        public GameObject NextBodyBlock
-        { get { return _nextBodyBlock; } }
-
         private float _speed;
         private float _stopMove;
         private float _xLimit;
         private float _yLimit;
+        private SpriteRenderer _renderer;
 
-        public float StopMove
-        { get { return _stopMove; } }
-
-        public float XLimit
-        { get { return _xLimit; } }
-
-        public float YLimit
-        { get { return _yLimit; } }
-
+        protected Vector2 previousMoveDirection = Vector2.zero;
         private Vector2 _moveDirection = Vector2.right;
 
         public Vector2 MoveDirection
@@ -37,6 +25,11 @@ namespace Game.Player.Movement
             set { _moveDirection = value.GetProminentVectorComponent(); }
         }
 
+        protected GameObject nextBodyBlock;
+
+        public GameObject NextBodyBlock
+        { get { return nextBodyBlock; } }
+
         private void Awake()
         {
             // Sets the player's movement data
@@ -44,6 +37,8 @@ namespace Game.Player.Movement
             _stopMove = _moveData.StopMove;
             _xLimit = _moveData.XLimit;
             _yLimit = _moveData.YLimit;
+
+            _renderer = gameObject.GetComponent<SpriteRenderer>();
 
             SetNextBodyBlock();
         }
@@ -82,14 +77,14 @@ namespace Game.Player.Movement
 
         private void CheckSpaceLimits()
         {
-            if (Mathf.Abs(transform.localPosition.x) > XLimit)
+            if (Mathf.Abs(transform.localPosition.x) > _xLimit)
             {
                 var xPosition = transform.localPosition.x * (-1);
                 var yPosition = transform.localPosition.y;
                 transform.localPosition = new Vector2(xPosition, yPosition);
             }
 
-            if (Mathf.Abs(transform.localPosition.y) > YLimit)
+            if (Mathf.Abs(transform.localPosition.y) > _yLimit)
             {
                 var xPosition = transform.localPosition.x;
                 var yPosition = transform.localPosition.y * (-1);
@@ -104,9 +99,42 @@ namespace Game.Player.Movement
                 .FirstOrDefault(x => x.transform.GetComponentsInChildren<Transform>().Contains(transform));
 
             // Gets the first child with the specified tag.
-            return snakeTransform?.transform
+            var childWithTag = snakeTransform.transform
                 .GetComponentsInChildren<Transform>()
-                .FirstOrDefault(x => x.tag == tag)?.gameObject;
+                .FirstOrDefault(x => x.CompareTag(tag));
+
+            return childWithTag != null ? childWithTag.gameObject : null;
+        }
+
+        public void ChangeDirection(Vector2 newDirection)
+        {
+            MoveDirection = newDirection;
+            SetSprite();
+            StartCoroutine(UpdateNextBlock());
+        }
+
+        protected abstract void SetSprite();
+
+        private IEnumerator UpdateNextBlock()
+        {
+            yield return new WaitForSeconds(_stopMove);
+            if (nextBodyBlock != null)
+            {
+                nextBodyBlock.GetComponent<BaseMovement>().ChangeDirection(_moveDirection);
+            }
+        }
+
+        /// <summary>
+        /// This Coroutine keeps a temporary sprite with snake's movement time duration, then changes it to another sprite.
+        /// </summary>
+        /// <param name="tempSprite">Temporary Sprite</param>
+        /// <param name="newSprite">New Sprite</param>
+        /// <returns></returns>
+        protected IEnumerator KeepSpriteForSeconds(Sprite tempSprite, Sprite newSprite)
+        {
+            _renderer.sprite = tempSprite;
+            yield return new WaitForSeconds(_stopMove);
+            _renderer.sprite = newSprite;
         }
     }
 }

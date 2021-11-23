@@ -17,7 +17,7 @@ public class TurningBodyBlock : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "SnakeBodyBlock")
+        if (collision.transform.CompareTag("SnakeBodyBlock"))
         {
             var moveScript = collision.GetComponent<BodyMovement>();
             moveScript.MoveDirection = MoveDirection;

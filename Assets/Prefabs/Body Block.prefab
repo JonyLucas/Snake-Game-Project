@@ -109,7 +109,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10, y: 5}
+  m_Size: {x: 6, y: 6}
   m_EdgeRadius: 0
 --- !u!114 &2004648394033607124
 MonoBehaviour:
@@ -124,3 +124,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveData: {fileID: 11400000, guid: 2920be906ea1aad4a9827910a4e0f472, type: 2}
+  _turnUpwardSprite: {fileID: 21300000, guid: c3f8772d73977ec4e82bf8b428a58e26, type: 3}
+  _turnDownwardSprite: {fileID: 0}
+  _turnBackwardSprite: {fileID: 0}
+  _turnForwardSprite: {fileID: 0}
+  _verticalSprite: {fileID: 21300000, guid: d8a1b5716a6d91140893490a20608de3, type: 3}
+  _altVerticalSprite: {fileID: 21300000, guid: 93b8f39a0962d92418e2d84eeeb639d2, type: 3}
+  _horizontalSprite: {fileID: 21300000, guid: 59c8a4c172d065e4993662460b3e7b7d, type: 3}
