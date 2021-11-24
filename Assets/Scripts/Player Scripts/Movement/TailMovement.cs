@@ -34,11 +34,11 @@ public class TailMovement : BaseMovement
         }
         else if (MoveDirection == Vector2.right)
         {
-            renderer.sprite = _backwardSprite;
+            renderer.sprite = _forwardSprite;
         }
         else
         {
-            renderer.sprite = _forwardSprite;
+            renderer.sprite = _backwardSprite;
         }
     }
 }
