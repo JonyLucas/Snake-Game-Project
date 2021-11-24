@@ -31,7 +31,7 @@ namespace Game.Player.Movement
         {
             var renderer = GetComponent<SpriteRenderer>();
             var newPosition = transform.localPosition;
-            var translatePosition = Vector3.zero;
+            Vector3 translatePosition;
 
             if (MoveDirection == Vector2.up)
             {

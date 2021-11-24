@@ -16,7 +16,7 @@ namespace Game.Player.Movement
         private float _xLimit;
         private float _yLimit;
 
-        private bool _turnSprite;
+        protected bool _turnSprite;
         private Sprite _nextSprite;
         private SpriteRenderer _renderer;
 
@@ -113,11 +113,21 @@ namespace Game.Player.Movement
             {
                 _turnSprite = false;
                 _renderer.sprite = _nextSprite;
+                StartCoroutine(UpdateNextBlock());
+            }
+        }
 
-                if (nextBodyBlock != null)
-                {
-                    nextBodyBlock.GetComponent<BaseMovement>().ChangeDirection(_moveDirection);
-                }
+        /// <summary>
+        /// Updates the next block of the snake's body, it has to have a little time delay, because each block updates its movement simultaneously.
+        /// So when the next block updates its sprite, it'll coincide with the movement refresh time, and will update the next block simultaneously.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator UpdateNextBlock()
+        {
+            if (nextBodyBlock != null)
+            {
+                yield return new WaitForSeconds(float.MinValue);
+                nextBodyBlock.GetComponent<BaseMovement>().ChangeDirection(_moveDirection);
             }
         }
 
@@ -127,17 +137,8 @@ namespace Game.Player.Movement
         /// <param name="newDirection"></param>
         public virtual void ChangeDirection(Vector2 newDirection)
         {
-            //StartCoroutine(PauseForSeconds(2));
             MoveDirection = newDirection;
             UpdateSnakeBlock();
-            //StartCoroutine(PauseForSeconds(2));
-        }
-
-        private IEnumerator PauseForSeconds(int seconds)
-        {
-            Time.timeScale = 0;
-            yield return new WaitForSecondsRealtime(seconds);
-            Time.timeScale = 1;
         }
 
         protected abstract void UpdateSnakeBlock();
