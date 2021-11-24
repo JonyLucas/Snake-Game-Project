@@ -7,6 +7,7 @@ namespace Game.Player.Movement
 {
     public abstract class BaseMovement : MonoBehaviour
     {
+        // Fields
         [SerializeField]
         private PlayerMoveData _moveData;
 
@@ -14,10 +15,18 @@ namespace Game.Player.Movement
         private float _stopMove;
         private float _xLimit;
         private float _yLimit;
+
+        private bool _turnSprite;
+        private Sprite _nextSprite;
         private SpriteRenderer _renderer;
 
         protected Vector2 previousMoveDirection = Vector2.zero;
         private Vector2 _moveDirection = Vector2.right;
+
+        protected GameObject nextBodyBlock;
+
+        // Properties
+        public float BlockSize { get; set; }
 
         public Vector2 MoveDirection
         {
@@ -25,7 +34,8 @@ namespace Game.Player.Movement
             set { _moveDirection = value.GetProminentVectorComponent(); }
         }
 
-        protected GameObject nextBodyBlock;
+        protected float StopMove
+        { get { return _stopMove; } }
 
         public GameObject NextBodyBlock
         { get { return nextBodyBlock; } }
@@ -38,7 +48,11 @@ namespace Game.Player.Movement
             _xLimit = _moveData.XLimit;
             _yLimit = _moveData.YLimit;
 
+            _turnSprite = false;
             _renderer = gameObject.GetComponent<SpriteRenderer>();
+
+            // Get the size of the block in Unity's Unit
+            BlockSize = _renderer.sprite.rect.width / _renderer.sprite.pixelsPerUnit;
 
             SetNextBodyBlock();
         }
@@ -63,6 +77,7 @@ namespace Game.Player.Movement
                 yield return new WaitForSeconds(_stopMove);
                 Translate(); //transform.Translate(_moveDirection, Space.Self) Also Works
                 CheckSpaceLimits();
+                CheckIsTurnBlock();
             }
         }
 
@@ -92,6 +107,54 @@ namespace Game.Player.Movement
             }
         }
 
+        private void CheckIsTurnBlock()
+        {
+            if (_turnSprite)
+            {
+                _turnSprite = false;
+                _renderer.sprite = _nextSprite;
+
+                if (nextBodyBlock != null)
+                {
+                    nextBodyBlock.GetComponent<BaseMovement>().ChangeDirection(_moveDirection);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Changes the direction of the snake's block, update its sprite and then update the subsequent block.
+        /// </summary>
+        /// <param name="newDirection"></param>
+        public virtual void ChangeDirection(Vector2 newDirection)
+        {
+            //StartCoroutine(PauseForSeconds(2));
+            MoveDirection = newDirection;
+            UpdateSnakeBlock();
+            //StartCoroutine(PauseForSeconds(2));
+        }
+
+        private IEnumerator PauseForSeconds(int seconds)
+        {
+            Time.timeScale = 0;
+            yield return new WaitForSecondsRealtime(seconds);
+            Time.timeScale = 1;
+        }
+
+        protected abstract void UpdateSnakeBlock();
+
+        /// <summary>
+        /// This Coroutine keeps a temporary sprite with snake's movement time duration, then changes it to another sprite.
+        /// </summary>
+        /// <param name="tempSprite">Temporary Sprite</param>
+        /// <param name="newSprite">New Sprite</param>
+        /// <returns></returns>
+        protected void SetTurnSprite(Sprite turnSprite, Sprite newSprite)
+        {
+            _renderer.sprite = turnSprite;
+            _turnSprite = true;
+            _nextSprite = newSprite;
+        }
+
         protected GameObject GetFirstSnakeElementByTag(string tag)
         {
             // Gets the player object that contains this gameObject's transform.
@@ -104,37 +167,6 @@ namespace Game.Player.Movement
                 .FirstOrDefault(x => x.CompareTag(tag));
 
             return childWithTag != null ? childWithTag.gameObject : null;
-        }
-
-        public void ChangeDirection(Vector2 newDirection)
-        {
-            MoveDirection = newDirection;
-            SetSprite();
-            StartCoroutine(UpdateNextBlock());
-        }
-
-        protected abstract void SetSprite();
-
-        private IEnumerator UpdateNextBlock()
-        {
-            yield return new WaitForSeconds(_stopMove);
-            if (nextBodyBlock != null)
-            {
-                nextBodyBlock.GetComponent<BaseMovement>().ChangeDirection(_moveDirection);
-            }
-        }
-
-        /// <summary>
-        /// This Coroutine keeps a temporary sprite with snake's movement time duration, then changes it to another sprite.
-        /// </summary>
-        /// <param name="tempSprite">Temporary Sprite</param>
-        /// <param name="newSprite">New Sprite</param>
-        /// <returns></returns>
-        protected IEnumerator KeepSpriteForSeconds(Sprite tempSprite, Sprite newSprite)
-        {
-            _renderer.sprite = tempSprite;
-            yield return new WaitForSeconds(_stopMove);
-            _renderer.sprite = newSprite;
         }
     }
 }

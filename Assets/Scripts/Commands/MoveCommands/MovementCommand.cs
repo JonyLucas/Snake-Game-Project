@@ -16,7 +16,6 @@ namespace Game.Commands.MoveCommands
             {
                 var moveScript = gameObject.GetComponent<BaseMovement>();
                 moveScript.ChangeDirection(MoveDirection);
-                SetHeadPosition(gameObject);
             }
         }
 
@@ -32,7 +31,5 @@ namespace Game.Commands.MoveCommands
             var moveDirection = moveScript.MoveDirection;
             return MoveDirection != moveDirection && moveDirection != MoveDirection * (-1);
         }
-
-        protected abstract void SetHeadPosition(GameObject gameObject);
     }
 }

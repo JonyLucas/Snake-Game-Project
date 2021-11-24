@@ -40,7 +40,7 @@ namespace Game.Player.Movement
             }
         }
 
-        protected override void SetSprite()
+        protected override void UpdateSnakeBlock()
         {
             Sprite turnSprite;
             Sprite nextSprite;
@@ -66,7 +66,7 @@ namespace Game.Player.Movement
                 nextSprite = _horizontalSprite;
             }
 
-            StartCoroutine(KeepSpriteForSeconds(turnSprite, nextSprite));
+            SetTurnSprite(turnSprite, nextSprite);
         }
     }
 }
