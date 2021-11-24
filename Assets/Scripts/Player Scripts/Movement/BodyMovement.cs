@@ -21,9 +21,6 @@ namespace Game.Player.Movement
         private Sprite _verticalSprite;
 
         [SerializeField]
-        private Sprite _altVerticalSprite;
-
-        [SerializeField]
         private Sprite _horizontalSprite;
 
         protected override void SetNextBodyBlock()
@@ -52,8 +49,8 @@ namespace Game.Player.Movement
             }
             else if (MoveDirection == Vector2.down)
             {
-                turnSprite = _turnUpwardSprite; //TODO Change later
-                nextSprite = _altVerticalSprite;
+                turnSprite = _turnDownwardSprite; //TODO Change later
+                nextSprite = _verticalSprite;
             }
             else if (MoveDirection == Vector2.right)
             {
