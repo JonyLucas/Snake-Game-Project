@@ -5,16 +5,23 @@ public class SnakeHealth : MonoBehaviour
 {
     private BaseMovement _baseMovementScript;
 
+    [SerializeField]
+    private GameObject _bodyBlockPrefab;
+
     private void Awake()
     {
-        _baseMovementScript = gameObject.GetComponent<HeadMovement>();
+        _baseMovementScript = GetComponent<HeadMovement>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == _baseMovementScript.NextBodyBlock)
+        if (collision.CompareTag("SnakeBodyBlock"))
         {
-            return;
+            Destroy(gameObject.transform.parent.gameObject);
+        }
+
+        if (collision.CompareTag("Collectable"))
+        {
         }
     }
 }

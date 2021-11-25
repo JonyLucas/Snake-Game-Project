@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _stopMove: 0.5
-  _xLimit: 94
-  _yLimit: 55
+  _xLimit: 80
+  _yLimit: 40

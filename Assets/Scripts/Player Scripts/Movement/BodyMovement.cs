@@ -6,16 +6,16 @@ namespace Game.Player.Movement
     public class BodyMovement : BaseMovement
     {
         [SerializeField]
-        private Sprite _turnUpwardSprite;
+        private Sprite _turnFirstQuadrantSprite;
 
         [SerializeField]
-        private Sprite _turnDownwardSprite;
+        private Sprite _turnSecondQuadrantSprite;
 
         [SerializeField]
-        private Sprite _turnBackwardSprite;
+        private Sprite _turnThirdQuadrantSprite;
 
         [SerializeField]
-        private Sprite _turnForwardSprite;
+        private Sprite _turnFourthQuadrantSprite;
 
         [SerializeField]
         private Sprite _verticalSprite;
@@ -39,27 +39,27 @@ namespace Game.Player.Movement
 
         protected override void UpdateSnakeBlock()
         {
-            Sprite turnSprite;
-            Sprite nextSprite;
+            Sprite turnSprite = null;
+            Sprite nextSprite = null;
 
             if (MoveDirection == Vector2.up)
             {
-                turnSprite = _turnUpwardSprite;
+                turnSprite = previousMoveDirection == Vector2.right ? _turnSecondQuadrantSprite : _turnFirstQuadrantSprite;
                 nextSprite = _verticalSprite;
             }
             else if (MoveDirection == Vector2.down)
             {
-                turnSprite = _turnDownwardSprite; //TODO Change later
+                turnSprite = previousMoveDirection == Vector2.right ? _turnThirdQuadrantSprite : _turnFourthQuadrantSprite;
                 nextSprite = _verticalSprite;
             }
             else if (MoveDirection == Vector2.right)
             {
-                turnSprite = _turnUpwardSprite; //TODO Change later
+                turnSprite = previousMoveDirection == Vector2.up ? _turnFourthQuadrantSprite : _turnFirstQuadrantSprite;
                 nextSprite = _horizontalSprite;
             }
-            else
+            else if (MoveDirection == Vector2.left)
             {
-                turnSprite = _turnUpwardSprite; //TODO Change later
+                turnSprite = previousMoveDirection == Vector2.up ? _turnThirdQuadrantSprite : _turnSecondQuadrantSprite;
                 nextSprite = _horizontalSprite;
             }
 

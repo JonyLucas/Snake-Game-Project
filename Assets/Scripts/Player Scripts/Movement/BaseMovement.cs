@@ -94,7 +94,7 @@ namespace Game.Player.Movement
         {
             if (Mathf.Abs(transform.localPosition.x) > _xLimit)
             {
-                var xPosition = transform.localPosition.x * (-1);
+                var xPosition = transform.localPosition.x > 0 ? -_xLimit : _xLimit;
                 var yPosition = transform.localPosition.y;
                 transform.localPosition = new Vector2(xPosition, yPosition);
             }
@@ -102,7 +102,7 @@ namespace Game.Player.Movement
             if (Mathf.Abs(transform.localPosition.y) > _yLimit)
             {
                 var xPosition = transform.localPosition.x;
-                var yPosition = transform.localPosition.y * (-1);
+                var yPosition = transform.localPosition.y > 0 ? -_yLimit : _yLimit;
                 transform.localPosition = new Vector2(xPosition, yPosition);
             }
         }
@@ -122,7 +122,7 @@ namespace Game.Player.Movement
         /// So when the next block updates its sprite, it'll coincide with the movement refresh time, and will update the next block simultaneously.
         /// </summary>
         /// <returns></returns>
-        private IEnumerator UpdateNextBlock()
+        protected IEnumerator UpdateNextBlock()
         {
             if (nextBodyBlock != null)
             {
@@ -137,8 +137,20 @@ namespace Game.Player.Movement
         /// <param name="newDirection"></param>
         public virtual void ChangeDirection(Vector2 newDirection)
         {
+            //StartCoroutine(PauseForSeconds(2));
+            Debug.Log($"Name: {transform.name} - Position: {transform.localPosition} - newDirection: {newDirection} - Sprite: {_renderer.sprite.name}");
+            previousMoveDirection = _moveDirection;
             MoveDirection = newDirection;
             UpdateSnakeBlock();
+            Debug.Log($"Name: {transform.name} - Position: {transform.localPosition} - newDirection: {newDirection} - Sprite: {_renderer.sprite.name}");
+            //StartCoroutine(PauseForSeconds(2));
+        }
+
+        private IEnumerator PauseForSeconds(float seconds)
+        {
+            Time.timeScale = 0;
+            yield return new WaitForSecondsRealtime(seconds);
+            Time.timeScale = 1;
         }
 
         protected abstract void UpdateSnakeBlock();

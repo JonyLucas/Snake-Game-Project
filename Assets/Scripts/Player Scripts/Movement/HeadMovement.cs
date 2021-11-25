@@ -24,46 +24,38 @@ namespace Game.Player.Movement
         public override void ChangeDirection(Vector2 newDirection)
         {
             base.ChangeDirection(newDirection);
-            nextBodyBlock.GetComponent<BaseMovement>().ChangeDirection(newDirection);
+            StartCoroutine(UpdateNextBlock());
         }
 
         protected override void UpdateSnakeBlock()
         {
             var renderer = GetComponent<SpriteRenderer>();
             var newPosition = transform.localPosition;
-            Vector3 translatePosition;
+            var translatePosition = previousMoveDirection * BlockSize;
 
             if (MoveDirection == Vector2.up)
             {
                 newPosition.y += BlockSize;
                 transform.localPosition = newPosition;
-
                 renderer.sprite = _upwardSprite;
-                translatePosition = new Vector3(BlockSize, 0, 0);
             }
             else if (MoveDirection == Vector2.down)
             {
                 newPosition.y -= BlockSize;
                 transform.localPosition = newPosition;
-
                 renderer.sprite = _downwardSprite;
-                translatePosition = new Vector3(BlockSize, 0, 0);
             }
             else if (MoveDirection == Vector2.right)
             {
                 newPosition.x += BlockSize;
                 transform.localPosition = newPosition;
-
                 renderer.sprite = _forwardSprite;
-                translatePosition = new Vector3(-BlockSize, 0, 0);
             }
-            else
+            else if (MoveDirection == Vector2.left)
             {
                 newPosition.x -= BlockSize;
                 transform.localPosition = newPosition;
-
                 renderer.sprite = _backwardSprite;
-                translatePosition = new Vector3(BlockSize, 0, 0);
             }
 
             UpdateBodyPosition(translatePosition);
@@ -71,6 +63,7 @@ namespace Game.Player.Movement
 
         private void UpdateBodyPosition(Vector3 translatePosition)
         {
+            Debug.Log("Translate Body: " + translatePosition);
             var currentBlock = nextBodyBlock;
             while (true)
             {

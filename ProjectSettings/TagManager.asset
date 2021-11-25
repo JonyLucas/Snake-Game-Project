@@ -8,6 +8,7 @@ TagManager:
   - SnakeBody
   - SnakeBodyBlock
   - SnakeTail
+  - Collectable
   layers:
   - Default
   - TransparentFX

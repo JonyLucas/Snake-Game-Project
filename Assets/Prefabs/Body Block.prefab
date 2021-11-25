@@ -124,10 +124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveData: {fileID: 11400000, guid: 2920be906ea1aad4a9827910a4e0f472, type: 2}
-  _turnUpwardSprite: {fileID: 21300000, guid: c3f8772d73977ec4e82bf8b428a58e26, type: 3}
-  _turnDownwardSprite: {fileID: 21300000, guid: 611641a9bc0a7ae4eb3e4ebad891f19c, type: 3}
-  _turnBackwardSprite: {fileID: 21300000, guid: d34564948b2ae1e46a65d9947e2cf42c, type: 3}
-  _turnForwardSprite: {fileID: 21300000, guid: b47644c1521da1c4aaab39bba5611f43, type: 3}
-  _verticalSprite: {fileID: 21300000, guid: d8a1b5716a6d91140893490a20608de3, type: 3}
-  _altVerticalSprite: {fileID: 21300000, guid: 93b8f39a0962d92418e2d84eeeb639d2, type: 3}
-  _horizontalSprite: {fileID: 21300000, guid: 59c8a4c172d065e4993662460b3e7b7d, type: 3}
+  _turnFirstQuadrantSprite: {fileID: 21300000, guid: e283aab5e4fcd3244b976954d9daa113, type: 3}
+  _turnSecondQuadrantSprite: {fileID: 21300000, guid: c3f8772d73977ec4e82bf8b428a58e26, type: 3}
+  _turnThirdQuadrantSprite: {fileID: 21300000, guid: 611641a9bc0a7ae4eb3e4ebad891f19c, type: 3}
+  _turnFourthQuadrantSprite: {fileID: 21300000, guid: d34564948b2ae1e46a65d9947e2cf42c, type: 3}
+  _verticalSprite: {fileID: 21300000, guid: deebead9c4d707a40966f0f412aa3a72, type: 3}
+  _horizontalSprite: {fileID: 21300000, guid: 68b900ecfad34c140a8a2d3136a3e148, type: 3}
