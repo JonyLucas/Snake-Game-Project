@@ -6,18 +6,6 @@ namespace Game.Player.Movement
     public class BodyMovement : BaseMovement
     {
         [SerializeField]
-        private Sprite _turnFirstQuadrantSprite;
-
-        [SerializeField]
-        private Sprite _turnSecondQuadrantSprite;
-
-        [SerializeField]
-        private Sprite _turnThirdQuadrantSprite;
-
-        [SerializeField]
-        private Sprite _turnFourthQuadrantSprite;
-
-        [SerializeField]
         private Sprite _verticalSprite;
 
         [SerializeField]
@@ -37,49 +25,18 @@ namespace Game.Player.Movement
             }
         }
 
-        protected override void UpdateSnakeBlock()
-        {
-            Sprite turnSprite = null;
-            Sprite nextSprite = null;
-
-            if (MoveDirection == Vector2.up)
-            {
-                turnSprite = previousMoveDirection == Vector2.right ? _turnSecondQuadrantSprite : _turnFirstQuadrantSprite;
-                nextSprite = _verticalSprite;
-            }
-            else if (MoveDirection == Vector2.down)
-            {
-                turnSprite = previousMoveDirection == Vector2.right ? _turnThirdQuadrantSprite : _turnFourthQuadrantSprite;
-                nextSprite = _verticalSprite;
-            }
-            else if (MoveDirection == Vector2.right)
-            {
-                turnSprite = previousMoveDirection == Vector2.up ? _turnFourthQuadrantSprite : _turnFirstQuadrantSprite;
-                nextSprite = _horizontalSprite;
-            }
-            else if (MoveDirection == Vector2.left)
-            {
-                turnSprite = previousMoveDirection == Vector2.up ? _turnThirdQuadrantSprite : _turnSecondQuadrantSprite;
-                nextSprite = _horizontalSprite;
-            }
-
-            StartCoroutine(SetTurnSprite(turnSprite, nextSprite));
-        }
-
-        /// <summary>
-        /// This Coroutine keeps a temporary sprite with snake's movement time duration, then changes it to another sprite.
-        /// </summary>
-        /// <param name="tempSprite">Temporary Sprite</param>
-        /// <param name="newSprite">New Sprite</param>
-        /// <returns></returns>
-        private IEnumerator SetTurnSprite(Sprite turnSprite, Sprite newSprite)
+        public override void UpdateSnakeBlock()
         {
             var renderer = GetComponent<SpriteRenderer>();
-            renderer.sprite = turnSprite;
-            yield return new WaitUntil(() => isMoving);
-            renderer.sprite = newSprite;
-            canChangeDirection = true;
-            UpdateNextBlock();
+
+            if (MoveDirection == Vector2.up || MoveDirection == Vector2.down)
+            {
+                renderer.sprite = _verticalSprite;
+            }
+            else if (MoveDirection == Vector2.right || MoveDirection == Vector2.left)
+            {
+                renderer.sprite = _horizontalSprite;
+            }
         }
     }
 }

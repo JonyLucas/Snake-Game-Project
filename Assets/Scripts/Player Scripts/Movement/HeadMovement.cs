@@ -17,26 +17,30 @@ namespace Game.Player.Movement
         [SerializeField]
         protected Sprite _forwardSprite;
 
+        [SerializeField]
+        private GameObject _turnBodyBlockPrefab;
+
+        private Vector3 _previousPosition;
+
         protected override void SetNextBodyBlock()
         {
             nextBodyBlock = GetFirstSnakeElementByTag("SnakeBodyBlock");
         }
 
-        protected override void UpdateSnakeBlock()
+        public override void UpdateSnakeBlock()
         {
             var renderer = GetComponent<SpriteRenderer>();
+            _previousPosition = transform.localPosition;
             var newPosition = transform.localPosition;
 
             if (MoveDirection == Vector2.up)
             {
-                newPosition.x += previousMoveDirection == Vector2.right ? -BlockSize : BlockSize;
                 newPosition.y += BlockSize;
                 transform.localPosition = newPosition;
                 renderer.sprite = _upwardSprite;
             }
             else if (MoveDirection == Vector2.down)
             {
-                newPosition.x += previousMoveDirection == Vector2.right ? -BlockSize : BlockSize;
                 newPosition.y -= BlockSize;
                 transform.localPosition = newPosition;
                 renderer.sprite = _downwardSprite;
@@ -44,20 +48,24 @@ namespace Game.Player.Movement
             else if (MoveDirection == Vector2.right)
             {
                 newPosition.x += BlockSize;
-                newPosition.y += previousMoveDirection == Vector2.up ? -BlockSize : BlockSize;
                 transform.localPosition = newPosition;
                 renderer.sprite = _forwardSprite;
             }
             else if (MoveDirection == Vector2.left)
             {
                 newPosition.x -= BlockSize;
-                newPosition.y += previousMoveDirection == Vector2.up ? -BlockSize : BlockSize;
                 transform.localPosition = newPosition;
                 renderer.sprite = _backwardSprite;
             }
 
-            UpdateNextBlock();
-            canChangeDirection = true;
+            CreateTurnBlock();
+        }
+
+        private void CreateTurnBlock()
+        {
+            var turnBlock = Instantiate(_turnBodyBlockPrefab, transform.parent);
+            turnBlock.transform.localPosition = _previousPosition;
+            turnBlock.GetComponent<TurnBlockMovement>().SetDirectionAndPosition(transform.localPosition, previousMoveDirection, MoveDirection);
         }
     }
 }

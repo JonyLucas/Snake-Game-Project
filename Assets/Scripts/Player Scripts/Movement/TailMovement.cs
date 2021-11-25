@@ -20,7 +20,7 @@ public class TailMovement : BaseMovement
         nextBodyBlock = null;
     }
 
-    protected override void UpdateSnakeBlock()
+    public override void UpdateSnakeBlock()
     {
         var renderer = GetComponent<SpriteRenderer>();
 

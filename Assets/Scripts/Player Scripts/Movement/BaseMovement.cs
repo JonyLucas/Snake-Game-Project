@@ -27,20 +27,20 @@ namespace Game.Player.Movement
         // Properties
         public float BlockSize { get; set; }
 
+        public bool CanChangeDirection
+        { get { return canChangeDirection; } }
+
+        protected float Speed
+        { get { return _speed; } }
+
         public Vector2 MoveDirection
         {
             get { return _moveDirection; }
             set { _moveDirection = value.GetProminentVectorComponent(); }
         }
 
-        public bool CanChangeDirection
-        { get { return canChangeDirection; } }
-
-        public float StopMove
-        { get { return _stopMove; } }
-
-        protected float Speed
-        { get { return _speed; } }
+        public GameObject NextBodyBlock
+        { get { return nextBodyBlock; } }
 
         private void Awake()
         {
@@ -114,36 +114,18 @@ namespace Game.Player.Movement
         /// <param name="newDirection"></param>
         public void ChangeDirection(Vector2 newDirection)
         {
-            StartCoroutine(ChangeDirectionCoroutine(newDirection));
-        }
-
-        /// <summary>
-        /// This Coroutine is used to synchronize the change of direction with the time that the snake's block is moved.
-        /// And also synchronize the player input with the movement rate of the snake's block (_stopMove).
-        /// </summary>
-        /// <param name="newDirection"></param>
-        /// <returns></returns>
-        private IEnumerator ChangeDirectionCoroutine(Vector2 newDirection)
-        {
             canChangeDirection = false;
-            yield return new WaitUntil(() => !isMoving);
+            //yield return new WaitUntil(() => !isMoving);
 
             previousMoveDirection = _moveDirection;
             MoveDirection = newDirection;
 
-            yield return new WaitForSeconds(float.MinValue);
+            //yield return new WaitForSeconds(float.MinValue);
             UpdateSnakeBlock();
+            canChangeDirection = true;
         }
 
-        protected abstract void UpdateSnakeBlock();
-
-        protected void UpdateNextBlock()
-        {
-            if (nextBodyBlock != null)
-            {
-                nextBodyBlock.GetComponent<BaseMovement>().ChangeDirection(_moveDirection);
-            }
-        }
+        public abstract void UpdateSnakeBlock();
 
         protected GameObject GetFirstSnakeElementByTag(string tag)
         {
