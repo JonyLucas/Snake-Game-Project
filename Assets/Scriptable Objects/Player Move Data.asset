@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Player Move Data
   m_EditorClassIdentifier: 
   _speed: 10
-  _stopMove: 0.2
+  _stopMove: 0.4
   _xLimit: 80
   _yLimit: 40

@@ -71,13 +71,13 @@ namespace Game.Player.Movement
         {
             while (gameObject.activeInHierarchy)
             {
-                yield return new WaitForSeconds(_stopMove * 0.9f);
+                yield return new WaitForSeconds(_stopMove);
                 isMoving = true;
 
                 Translate(); //transform.Translate(_moveDirection, Space.Self) Also Works
                 CheckSpaceLimits();
 
-                yield return new WaitForSeconds(_stopMove * 0.1f);
+                yield return new WaitForSeconds(0.01f);
                 isMoving = false;
             }
         }

@@ -22,6 +22,7 @@ public class SnakeHealth : MonoBehaviour
 
         if (collision.CompareTag("Collectable"))
         {
+            Destroy(collision.gameObject);
         }
     }
 }
