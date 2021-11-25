@@ -63,9 +63,7 @@ namespace Game.Player.Movement
                 nextSprite = _horizontalSprite;
             }
 
-            SetTurnSprite(turnSprite, nextSprite);
-
-            //StartCoroutine(SetTurnSprite(turnSprite, nextSprite));
+            StartCoroutine(SetTurnSprite(turnSprite, nextSprite));
         }
 
         /// <summary>
@@ -74,14 +72,14 @@ namespace Game.Player.Movement
         /// <param name="tempSprite">Temporary Sprite</param>
         /// <param name="newSprite">New Sprite</param>
         /// <returns></returns>
-        //private IEnumerator SetTurnSprite(Sprite turnSprite, Sprite newSprite)
-        //{
-        //    var renderer = GetComponent<SpriteRenderer>();
-        //    renderer.sprite = turnSprite;
-        //    yield return new WaitUntil(() => IsMoving);
-        //    //yield return new WaitForSeconds(StopMove);
-        //    renderer.sprite = newSprite;
-        //    UpdateNextBlock();
-        //}
+        private IEnumerator SetTurnSprite(Sprite turnSprite, Sprite newSprite)
+        {
+            var renderer = GetComponent<SpriteRenderer>();
+            renderer.sprite = turnSprite;
+            yield return new WaitUntil(() => isMoving);
+            renderer.sprite = newSprite;
+            canChangeDirection = true;
+            UpdateNextBlock();
+        }
     }
 }

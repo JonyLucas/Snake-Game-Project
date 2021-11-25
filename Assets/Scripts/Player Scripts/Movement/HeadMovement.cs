@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Game.Player.Movement
@@ -55,8 +56,8 @@ namespace Game.Player.Movement
                 renderer.sprite = _backwardSprite;
             }
 
-            StartCoroutine(UpdateNextBlock());
-            //UpdateNextBlock();
+            UpdateNextBlock();
+            canChangeDirection = true;
         }
     }
 }
