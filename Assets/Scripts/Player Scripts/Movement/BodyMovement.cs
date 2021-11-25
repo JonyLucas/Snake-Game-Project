@@ -64,6 +64,24 @@ namespace Game.Player.Movement
             }
 
             SetTurnSprite(turnSprite, nextSprite);
+
+            //StartCoroutine(SetTurnSprite(turnSprite, nextSprite));
         }
+
+        /// <summary>
+        /// This Coroutine keeps a temporary sprite with snake's movement time duration, then changes it to another sprite.
+        /// </summary>
+        /// <param name="tempSprite">Temporary Sprite</param>
+        /// <param name="newSprite">New Sprite</param>
+        /// <returns></returns>
+        //private IEnumerator SetTurnSprite(Sprite turnSprite, Sprite newSprite)
+        //{
+        //    var renderer = GetComponent<SpriteRenderer>();
+        //    renderer.sprite = turnSprite;
+        //    yield return new WaitUntil(() => IsMoving);
+        //    //yield return new WaitForSeconds(StopMove);
+        //    renderer.sprite = newSprite;
+        //    UpdateNextBlock();
+        //}
     }
 }

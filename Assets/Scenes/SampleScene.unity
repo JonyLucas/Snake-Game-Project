@@ -247,6 +247,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveData: {fileID: 11400000, guid: 2920be906ea1aad4a9827910a4e0f472, type: 2}
+  previousMoveDirection: {x: 0, y: 0}
+  _moveDirection: {x: 1, y: 0}
   _upwardSprite: {fileID: 21300000, guid: 6e4a501d5af2a53408cbdb69a7c74a48, type: 3}
   _downwardSprite: {fileID: 21300000, guid: 778e6b402e103d445a02414ff34a6809, type: 3}
   _backwardSprite: {fileID: 21300000, guid: 83f14b0e381c2cb40a9906760d4128c0, type: 3}
@@ -778,6 +780,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveData: {fileID: 11400000, guid: 2920be906ea1aad4a9827910a4e0f472, type: 2}
+  previousMoveDirection: {x: 0, y: 0}
+  _moveDirection: {x: 1, y: 0}
   _upwardSprite: {fileID: 21300000, guid: f3cc2c7e916b80a43a86578a00a0a670, type: 3}
   _downwardSprite: {fileID: 21300000, guid: d476975a244ff42498dfc63041f2cddc, type: 3}
   _backwardSprite: {fileID: 21300000, guid: 988ab458c46349240a702fae63153c8a, type: 3}
@@ -841,7 +845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbbd472963a802d4d967aa87481727d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bodyBlockPrefab: {fileID: 0}
+  _bodyBlockPrefab: {fileID: 2004648392446483777, guid: 9b91d1c27fcf69e4ea472a4b1bac5692, type: 3}
 --- !u!4 &1656401044 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2004648392446483782, guid: 9b91d1c27fcf69e4ea472a4b1bac5692, type: 3}

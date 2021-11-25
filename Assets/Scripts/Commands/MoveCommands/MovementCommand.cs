@@ -27,9 +27,15 @@ namespace Game.Commands.MoveCommands
         /// <returns>Evaluated Condition</returns>
         protected bool ExecutionCodition(GameObject gameObject)
         {
-            var moveScript = gameObject.GetComponent<HeadMovement>();
-            var moveDirection = moveScript.MoveDirection;
-            return MoveDirection != moveDirection && moveDirection != MoveDirection * (-1);
+            if (gameObject != null)
+            {
+                var moveScript = gameObject.GetComponent<HeadMovement>();
+                var snakeMoveDirection = moveScript.MoveDirection;
+                var isValidDirection = snakeMoveDirection != MoveDirection && snakeMoveDirection != MoveDirection * (-1);
+                return isValidDirection && moveScript.CanChangeDirection;
+            }
+
+            return false;
         }
     }
 }

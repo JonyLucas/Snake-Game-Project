@@ -20,6 +20,9 @@ namespace Game.Player.Movement
         private Sprite _nextSprite;
         private SpriteRenderer _renderer;
 
+        private bool _isMoving;
+        private bool _canChangeDirection;
+
         protected Vector2 previousMoveDirection = Vector2.zero;
         private Vector2 _moveDirection = Vector2.right;
 
@@ -34,11 +37,17 @@ namespace Game.Player.Movement
             set { _moveDirection = value.GetProminentVectorComponent(); }
         }
 
-        protected float StopMove
+        public bool CanChangeDirection
+        { get { return _canChangeDirection; } }
+
+        public bool IsMoving
+        { get { return _isMoving; } }
+
+        public float StopMove
         { get { return _stopMove; } }
 
-        public GameObject NextBodyBlock
-        { get { return nextBodyBlock; } }
+        protected float Speed
+        { get { return _speed; } }
 
         private void Awake()
         {
@@ -48,11 +57,16 @@ namespace Game.Player.Movement
             _xLimit = _moveData.XLimit;
             _yLimit = _moveData.YLimit;
 
+            _isMoving = false;
+            _canChangeDirection = true;
+
+            // TODO Verifying
             _turnSprite = false;
             _renderer = gameObject.GetComponent<SpriteRenderer>();
 
             // Get the size of the block in Unity's Unit
-            BlockSize = _renderer.sprite.rect.width / _renderer.sprite.pixelsPerUnit;
+            var renderer = gameObject.GetComponent<SpriteRenderer>();
+            BlockSize = renderer.sprite.rect.width / renderer.sprite.pixelsPerUnit;
 
             SetNextBodyBlock();
         }
@@ -64,17 +78,14 @@ namespace Game.Player.Movement
             StartCoroutine(Movement());
         }
 
-        /// <summary>
-        /// Movement of the snake's head is implemented here.
-        /// </summary>
-        /// <returns></returns>
         private IEnumerator Movement()
         {
-            // Gives a second of waiting for the scene to build
-            yield return new WaitForSeconds(1);
-            while (true)
+            while (gameObject.activeInHierarchy)
             {
+                _isMoving = false;
                 yield return new WaitForSeconds(_stopMove);
+                _isMoving = true;
+
                 Translate(); //transform.Translate(_moveDirection, Space.Self) Also Works
                 CheckSpaceLimits();
                 CheckIsTurnBlock();
@@ -118,6 +129,19 @@ namespace Game.Player.Movement
         }
 
         /// <summary>
+        /// This Coroutine keeps a temporary sprite with snake's movement time duration, then changes it to another sprite.
+        /// </summary>
+        /// <param name="tempSprite">Temporary Sprite</param>
+        /// <param name="newSprite">New Sprite</param>
+        /// <returns></returns>
+        protected void SetTurnSprite(Sprite turnSprite, Sprite newSprite)
+        {
+            _renderer.sprite = turnSprite;
+            _turnSprite = true;
+            _nextSprite = newSprite;
+        }
+
+        /// <summary>
         /// Updates the next block of the snake's body, it has to have a little time delay, because each block updates its movement simultaneously.
         /// So when the next block updates its sprite, it'll coincide with the movement refresh time, and will update the next block simultaneously.
         /// </summary>
@@ -135,38 +159,38 @@ namespace Game.Player.Movement
         /// Changes the direction of the snake's block, update its sprite and then update the subsequent block.
         /// </summary>
         /// <param name="newDirection"></param>
-        public virtual void ChangeDirection(Vector2 newDirection)
+        public void ChangeDirection(Vector2 newDirection)
         {
-            //StartCoroutine(PauseForSeconds(2));
-            Debug.Log($"Name: {transform.name} - Position: {transform.localPosition} - newDirection: {newDirection} - Sprite: {_renderer.sprite.name}");
+            StartCoroutine(ChangeDirectionCoroutine(newDirection));
+        }
+
+        /// <summary>
+        /// This Coroutine is used to synchronize the change of direction with the time that the snake's block is moved.
+        /// And also synchronize the player input with the movement rate of the snake's block (_stopMove).
+        /// </summary>
+        /// <param name="newDirection"></param>
+        /// <returns></returns>
+        private IEnumerator ChangeDirectionCoroutine(Vector2 newDirection)
+        {
+            _canChangeDirection = false;
+            yield return new WaitUntil(() => !_isMoving);
+
             previousMoveDirection = _moveDirection;
             MoveDirection = newDirection;
             UpdateSnakeBlock();
-            Debug.Log($"Name: {transform.name} - Position: {transform.localPosition} - newDirection: {newDirection} - Sprite: {_renderer.sprite.name}");
-            //StartCoroutine(PauseForSeconds(2));
-        }
-
-        private IEnumerator PauseForSeconds(float seconds)
-        {
-            Time.timeScale = 0;
-            yield return new WaitForSecondsRealtime(seconds);
-            Time.timeScale = 1;
+            _canChangeDirection = true;
         }
 
         protected abstract void UpdateSnakeBlock();
 
-        /// <summary>
-        /// This Coroutine keeps a temporary sprite with snake's movement time duration, then changes it to another sprite.
-        /// </summary>
-        /// <param name="tempSprite">Temporary Sprite</param>
-        /// <param name="newSprite">New Sprite</param>
-        /// <returns></returns>
-        protected void SetTurnSprite(Sprite turnSprite, Sprite newSprite)
-        {
-            _renderer.sprite = turnSprite;
-            _turnSprite = true;
-            _nextSprite = newSprite;
-        }
+        //protected void UpdateNextBlock()
+        //{
+        //    //Updates the next block
+        //    if (nextBodyBlock != null)
+        //    {
+        //        nextBodyBlock.GetComponent<BaseMovement>().ChangeDirection(_moveDirection);
+        //    }
+        //}
 
         protected GameObject GetFirstSnakeElementByTag(string tag)
         {
