@@ -3,17 +3,18 @@ using UnityEngine;
 
 public class TailMovement : BaseMovement
 {
-    [SerializeField]
     protected Sprite _upwardSprite;
-
-    [SerializeField]
     protected Sprite _downwardSprite;
-
-    [SerializeField]
     protected Sprite _backwardSprite;
-
-    [SerializeField]
     protected Sprite _forwardSprite;
+
+    protected override void SetSprites()
+    {
+        _upwardSprite = _sprites.tailUpwardSprite;
+        _downwardSprite = _sprites.tailDownwardSprite;
+        _backwardSprite = _sprites.tailBackwardSprite;
+        _forwardSprite = _sprites.tailForwardSprite;
+    }
 
     protected override void SetNextBodyBlock()
     {

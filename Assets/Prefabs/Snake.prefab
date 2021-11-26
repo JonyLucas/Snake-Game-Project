@@ -100,10 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveData: {fileID: 11400000, guid: 2920be906ea1aad4a9827910a4e0f472, type: 2}
-  _upwardSprite: {fileID: 21300000, guid: f3cc2c7e916b80a43a86578a00a0a670, type: 3}
-  _downwardSprite: {fileID: 21300000, guid: d476975a244ff42498dfc63041f2cddc, type: 3}
-  _backwardSprite: {fileID: 21300000, guid: 988ab458c46349240a702fae63153c8a, type: 3}
-  _forwardSprite: {fileID: 21300000, guid: 63167415cdc32aa4a9733c444b285c36, type: 3}
+  _sprites: {fileID: 11400000, guid: 56c2e8a5243a4884e9d52bda20675a22, type: 2}
 --- !u!61 &1401251458996996207
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -262,10 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveData: {fileID: 11400000, guid: 2920be906ea1aad4a9827910a4e0f472, type: 2}
-  _upwardSprite: {fileID: 21300000, guid: 6e4a501d5af2a53408cbdb69a7c74a48, type: 3}
-  _downwardSprite: {fileID: 21300000, guid: 778e6b402e103d445a02414ff34a6809, type: 3}
-  _backwardSprite: {fileID: 21300000, guid: 83f14b0e381c2cb40a9906760d4128c0, type: 3}
-  _forwardSprite: {fileID: 21300000, guid: 9c6f562e6c1716b448f33dc1e8d09343, type: 3}
+  _sprites: {fileID: 11400000, guid: 56c2e8a5243a4884e9d52bda20675a22, type: 2}
 --- !u!61 &1401251459658287381
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -414,6 +408,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2004648394033607124, guid: 9b91d1c27fcf69e4ea472a4b1bac5692, type: 3}
+      propertyPath: _sprites
+      value: 
+      objectReference: {fileID: 11400000, guid: 56c2e8a5243a4884e9d52bda20675a22, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b91d1c27fcf69e4ea472a4b1bac5692, type: 3}
 --- !u!4 &1401251459022565784 stripped

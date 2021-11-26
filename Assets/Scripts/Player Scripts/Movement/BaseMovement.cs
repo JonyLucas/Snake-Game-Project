@@ -1,4 +1,5 @@
 using Game.Extensions;
+using Game.ScriptableObjects;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -10,6 +11,9 @@ namespace Game.Player.Movement
         // Fields
         [SerializeField]
         private PlayerMoveData _moveData;
+
+        [SerializeField]
+        protected PlayerSprites _sprites;
 
         private float _speed;
         private float _stopMove;
@@ -60,8 +64,11 @@ namespace Game.Player.Movement
             var renderer = gameObject.GetComponent<SpriteRenderer>();
             BlockSize = renderer.sprite.rect.width / renderer.sprite.pixelsPerUnit;
 
+            SetSprites();
             SetNextBodyBlock();
         }
+
+        protected abstract void SetSprites();
 
         protected abstract void SetNextBodyBlock();
 

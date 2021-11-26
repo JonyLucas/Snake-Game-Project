@@ -5,17 +5,18 @@ namespace Game.Player.Movement
 {
     public class HeadMovement : BaseMovement
     {
-        [SerializeField]
         protected Sprite _upwardSprite;
-
-        [SerializeField]
         protected Sprite _downwardSprite;
-
-        [SerializeField]
         protected Sprite _backwardSprite;
-
-        [SerializeField]
         protected Sprite _forwardSprite;
+
+        protected override void SetSprites()
+        {
+            _upwardSprite = _sprites.headUpwardSprite;
+            _downwardSprite = _sprites.headDownwardSprite;
+            _backwardSprite = _sprites.headBackwardSprite;
+            _forwardSprite = _sprites.headForwardSprite;
+        }
 
         protected override void SetNextBodyBlock()
         {

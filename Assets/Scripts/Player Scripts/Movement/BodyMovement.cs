@@ -5,23 +5,22 @@ namespace Game.Player.Movement
 {
     public class BodyMovement : BaseMovement
     {
-        [SerializeField]
         private Sprite _turnFirstQuadrantSprite;
-
-        [SerializeField]
         private Sprite _turnSecondQuadrantSprite;
-
-        [SerializeField]
         private Sprite _turnThirdQuadrantSprite;
-
-        [SerializeField]
         private Sprite _turnFourthQuadrantSprite;
-
-        [SerializeField]
         private Sprite _verticalSprite;
-
-        [SerializeField]
         private Sprite _horizontalSprite;
+
+        protected override void SetSprites()
+        {
+            _turnFirstQuadrantSprite = _sprites.turnBodyFirstQuadrantSprite;
+            _turnSecondQuadrantSprite = _sprites.turnBodySecondQuadrantSprite;
+            _turnThirdQuadrantSprite = _sprites.turnBodyThirdQuadrantSprite;
+            _turnFourthQuadrantSprite = _sprites.turnBodyFourthQuadrantSprite;
+            _verticalSprite = _sprites.bodyVerticalSprite;
+            _horizontalSprite = _sprites.bodyHorizontalSprite;
+        }
 
         protected override void SetNextBodyBlock()
         {

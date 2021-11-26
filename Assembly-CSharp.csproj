@@ -57,11 +57,11 @@
     <Compile Include="Assets\Scripts\Commands\MoveCommands\TurnRightCommand.cs" />
     <Compile Include="Assets\Scripts\Commands\MoveCommands\TurnUpCommand.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\InputManager.cs" />
-    <Compile Include="Assets\Scripts\Scriptable Objects\PlayerStatus.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Objects\Player Data\PlayerStatus.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\Movement\BaseMovement.cs" />
     <Compile Include="Assets\Scripts\Commands\BaseCommand.cs" />
-    <Compile Include="Assets\Scripts\Scriptable Objects\PlayerControl.cs" />
-    <Compile Include="Assets\Scripts\Scriptable Objects\PlayerMoveData.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Objects\Player Data\PlayerControl.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Objects\Player Data\PlayerMoveData.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\Movement\TailMovement.cs" />
     <Compile Include="Assets\Scripts\Scene\BackgroundAnimation.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\SnakeHealth.cs" />
@@ -70,6 +70,10 @@
     <Compile Include="Assets\Scripts\Player Scripts\Movement\BodyMovement.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\Movement\HeadMovement.cs" />
     <Compile Include="Assets\Scripts\Commands\MoveCommands\TurnLeftCommand.cs" />
+    <Compile Include="Assets\Scripts\Scene\Spawner\BaseSpawner.cs" />
+    <Compile Include="Assets\Scripts\Scene\Spawner\RandomTimeSpawner.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Objects\SpawnerData.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Objects\Player Data\PlayerSprites.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

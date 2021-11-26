@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d5bb5a4ceea9aa4c99cd1eea6a7ed10, type: 3}
+  m_Name: Player Sprites 2
+  m_EditorClassIdentifier: 
+  headUpwardSprite: {fileID: 21300000, guid: 4254fb96ce1078b44a5eee5fa553990d, type: 3}
+  headDownwardSprite: {fileID: 21300000, guid: bce4757a10ac446468eb55c5dcdf2dde, type: 3}
+  headBackwardSprite: {fileID: 21300000, guid: a2b95c93ff16e144ebcdf9324c2b2ffd, type: 3}
+  headForwardSprite: {fileID: 21300000, guid: 67b77260c9395e646b63c48f79012c82, type: 3}
+  turnBodyFirstQuadrantSprite: {fileID: 21300000, guid: 6c76258aa050379428de21fbbdb2dc20, type: 3}
+  turnBodySecondQuadrantSprite: {fileID: 21300000, guid: cb089fe82fd99ab4dbf94abf1eb12e3a, type: 3}
+  turnBodyThirdQuadrantSprite: {fileID: 21300000, guid: 1c47b3abf39a555409aad370af9d651e, type: 3}
+  turnBodyFourthQuadrantSprite: {fileID: 21300000, guid: fd8bbd5baedc9494f8b6294e2cda0db2, type: 3}
+  bodyVerticalSprite: {fileID: 21300000, guid: 78330a3587e2c8242a9db4ff9953af60, type: 3}
+  bodyHorizontalSprite: {fileID: 21300000, guid: 0580f15b30a2a6a42ad9e78d2b0f3caa, type: 3}
+  tailUpwardSprite: {fileID: 21300000, guid: eca41dd5bf21e424a8ee8673b4924f86, type: 3}
+  tailDownwardSprite: {fileID: 21300000, guid: 16c466d4317ac3d46b8c2c40f5257299, type: 3}
+  tailBackwardSprite: {fileID: 21300000, guid: 4504e1a64774f7e48b7f664026e8137a, type: 3}
+  tailForwardSprite: {fileID: 21300000, guid: f9c59bef04d70d34e961405362e525f1, type: 3}
