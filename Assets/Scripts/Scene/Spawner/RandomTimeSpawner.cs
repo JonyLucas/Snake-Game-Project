@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Spawner
@@ -7,14 +6,32 @@ namespace Game.Spawner
     public class RandomTimeSpawner : BaseSpawner
     {
         [SerializeField]
-        private float _minRange;
+        private float _minTimeRange;
 
         [SerializeField]
-        private float _maxRange;
+        private float _maxTimeRange;
 
-        // Update is called once per frame
-        private void Update()
+        protected override void SetData()
         {
+            base.SetData();
+            _minTimeRange = spawnerData.MinTimeRange;
+            _maxTimeRange = spawnerData.MaxTimeRange;
+        }
+
+        protected override IEnumerator SpawnObjectCoroutine()
+        {
+            while (gameObject.activeInHierarchy)
+            {
+                yield return new WaitForSeconds(spwanTime);
+                spwanTime = Random.Range(_minTimeRange, _maxTimeRange);
+                if (spawnCondition)
+                {
+                    var newPosition = Vector3.zero;
+                    newPosition.x = Random.Range(-xLimit, xLimit);
+                    newPosition.y = Random.Range(-yLimit, yLimit);
+                    Instantiate(spawnObjectPrefab, newPosition, Quaternion.identity);
+                }
+            }
         }
     }
 }
