@@ -76,9 +76,8 @@ namespace Game.Player.Movement
         {
             var renderer = GetComponent<SpriteRenderer>();
             renderer.sprite = turnSprite;
-            yield return new WaitUntil(() => isMoving);
+            yield return new WaitUntil(() => IsMoving);
             renderer.sprite = newSprite;
-            canChangeDirection = true;
             UpdateNextBlock();
         }
     }

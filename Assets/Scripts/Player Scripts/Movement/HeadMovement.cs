@@ -26,17 +26,16 @@ namespace Game.Player.Movement
         {
             var renderer = GetComponent<SpriteRenderer>();
             var newPosition = transform.localPosition;
+            var translatePosition = previousMoveDirection * Speed;
 
             if (MoveDirection == Vector2.up)
             {
-                newPosition.x += previousMoveDirection == Vector2.right ? -BlockSize : BlockSize;
                 newPosition.y += BlockSize;
                 transform.localPosition = newPosition;
                 renderer.sprite = _upwardSprite;
             }
             else if (MoveDirection == Vector2.down)
             {
-                newPosition.x += previousMoveDirection == Vector2.right ? -BlockSize : BlockSize;
                 newPosition.y -= BlockSize;
                 transform.localPosition = newPosition;
                 renderer.sprite = _downwardSprite;
@@ -44,20 +43,29 @@ namespace Game.Player.Movement
             else if (MoveDirection == Vector2.right)
             {
                 newPosition.x += BlockSize;
-                newPosition.y += previousMoveDirection == Vector2.up ? -BlockSize : BlockSize;
                 transform.localPosition = newPosition;
                 renderer.sprite = _forwardSprite;
             }
             else if (MoveDirection == Vector2.left)
             {
                 newPosition.x -= BlockSize;
-                newPosition.y += previousMoveDirection == Vector2.up ? -BlockSize : BlockSize;
                 transform.localPosition = newPosition;
                 renderer.sprite = _backwardSprite;
             }
 
+            UpdateBodyPosition(translatePosition);
             UpdateNextBlock();
-            canChangeDirection = true;
+        }
+
+        private void UpdateBodyPosition(Vector3 translatePosition)
+        {
+            Debug.Log("Translate Body: " + translatePosition);
+            var currentBlock = nextBodyBlock;
+            while (currentBlock != null)
+            {
+                currentBlock.transform.localPosition += translatePosition;
+                currentBlock = currentBlock.GetComponent<BaseMovement>().NextBodyBlock;
+            }
         }
     }
 }

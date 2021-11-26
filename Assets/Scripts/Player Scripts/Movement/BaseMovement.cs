@@ -16,8 +16,8 @@ namespace Game.Player.Movement
         private float _xLimit;
         private float _yLimit;
 
-        protected bool isMoving;
-        protected bool canChangeDirection;
+        private bool _isMoving;
+        private bool _canChangeDirection;
 
         protected Vector2 previousMoveDirection = Vector2.zero;
         private Vector2 _moveDirection = Vector2.right;
@@ -27,20 +27,23 @@ namespace Game.Player.Movement
         // Properties
         public float BlockSize { get; set; }
 
+        public bool CanChangeDirection
+        { get { return _canChangeDirection; } }
+
+        protected bool IsMoving
+        { get { return _isMoving; } }
+
+        protected float Speed
+        { get { return _speed; } }
+
+        public GameObject NextBodyBlock
+        { get { return nextBodyBlock; } }
+
         public Vector2 MoveDirection
         {
             get { return _moveDirection; }
             set { _moveDirection = value.GetProminentVectorComponent(); }
         }
-
-        public bool CanChangeDirection
-        { get { return canChangeDirection; } }
-
-        public float StopMove
-        { get { return _stopMove; } }
-
-        protected float Speed
-        { get { return _speed; } }
 
         private void Awake()
         {
@@ -50,8 +53,8 @@ namespace Game.Player.Movement
             _xLimit = _moveData.XLimit;
             _yLimit = _moveData.YLimit;
 
-            isMoving = false;
-            canChangeDirection = true;
+            _isMoving = false;
+            _canChangeDirection = true;
 
             // Get the size of the block in Unity's Unit
             var renderer = gameObject.GetComponent<SpriteRenderer>();
@@ -72,13 +75,13 @@ namespace Game.Player.Movement
             while (gameObject.activeInHierarchy)
             {
                 yield return new WaitForSeconds(_stopMove);
-                isMoving = true;
+                _isMoving = true;
 
                 Translate(); //transform.Translate(_moveDirection, Space.Self) Also Works
                 CheckSpaceLimits();
 
                 yield return new WaitForSeconds(0.01f);
-                isMoving = false;
+                _isMoving = false;
             }
         }
 
@@ -125,13 +128,11 @@ namespace Game.Player.Movement
         /// <returns></returns>
         private IEnumerator ChangeDirectionCoroutine(Vector2 newDirection)
         {
-            canChangeDirection = false;
-            yield return new WaitUntil(() => !isMoving);
+            _canChangeDirection = false;
+            yield return new WaitUntil(() => !_isMoving);
 
             previousMoveDirection = _moveDirection;
             MoveDirection = newDirection;
-
-            yield return new WaitForSeconds(float.MinValue);
             UpdateSnakeBlock();
         }
 
@@ -139,6 +140,7 @@ namespace Game.Player.Movement
 
         protected void UpdateNextBlock()
         {
+            _canChangeDirection = true;
             if (nextBodyBlock != null)
             {
                 nextBodyBlock.GetComponent<BaseMovement>().ChangeDirection(_moveDirection);
