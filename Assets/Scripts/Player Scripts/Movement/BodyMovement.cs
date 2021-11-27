@@ -12,6 +12,9 @@ namespace Game.Player.Movement
         private Sprite _verticalSprite;
         private Sprite _horizontalSprite;
 
+        private bool _isTurning;
+        private Sprite _nextSprite;
+
         protected override void SetSprites()
         {
             _turnFirstQuadrantSprite = _sprites.turnBodyFirstQuadrantSprite;
@@ -20,6 +23,19 @@ namespace Game.Player.Movement
             _turnFourthQuadrantSprite = _sprites.turnBodyFourthQuadrantSprite;
             _verticalSprite = _sprites.bodyVerticalSprite;
             _horizontalSprite = _sprites.bodyHorizontalSprite;
+        }
+
+        protected override void Movement()
+        {
+            if (_isTurning)
+            {
+                renderer.sprite = _nextSprite;
+            }
+
+            Translate();
+            CheckSpaceLimits();
+            UpdateBodyPositionAndDirection(_isTurning);
+            _isTurning = false;
         }
 
         public override void SetNextBodyBlock(GameObject nextBlock = null)
@@ -42,56 +58,41 @@ namespace Game.Player.Movement
             }
         }
 
-        protected override void UpdateSnakeBlock()
+        protected override void BlockTurnDirection()
         {
-            Sprite turnSprite = null;
-            Sprite nextSprite = null;
-
-            if (PreviousMoveDirection != MoveDirection)
+            if (PreviousMoveDirection == MoveDirection)
             {
-                if (MoveDirection == Vector2.up)
-                {
-                    turnSprite = PreviousMoveDirection == Vector2.right ? _turnSecondQuadrantSprite : _turnFirstQuadrantSprite;
-                    nextSprite = _verticalSprite;
-                }
-                else if (MoveDirection == Vector2.down)
-                {
-                    turnSprite = PreviousMoveDirection == Vector2.right ? _turnThirdQuadrantSprite : _turnFourthQuadrantSprite;
-                    nextSprite = _verticalSprite;
-                }
-                else if (MoveDirection == Vector2.right)
-                {
-                    turnSprite = PreviousMoveDirection == Vector2.up ? _turnFourthQuadrantSprite : _turnFirstQuadrantSprite;
-                    nextSprite = _horizontalSprite;
-                }
-                else if (MoveDirection == Vector2.left)
-                {
-                    turnSprite = PreviousMoveDirection == Vector2.up ? _turnThirdQuadrantSprite : _turnSecondQuadrantSprite;
-                    nextSprite = _horizontalSprite;
-                }
-            }
-            else
-            {
-                nextSprite = GetComponent<SpriteRenderer>().sprite;
+                return;
             }
 
-            StartCoroutine(SetTurnSprite(turnSprite, nextSprite));
+            _isTurning = true;
+
+            if (MoveDirection == Vector2.up)
+            {
+                renderer.sprite = PreviousMoveDirection == Vector2.right ? _turnSecondQuadrantSprite : _turnFirstQuadrantSprite;
+                _nextSprite = _verticalSprite;
+            }
+            else if (MoveDirection == Vector2.down)
+            {
+                renderer.sprite = PreviousMoveDirection == Vector2.right ? _turnThirdQuadrantSprite : _turnFourthQuadrantSprite;
+                _nextSprite = _verticalSprite;
+            }
+            else if (MoveDirection == Vector2.right)
+            {
+                renderer.sprite = PreviousMoveDirection == Vector2.up ? _turnFourthQuadrantSprite : _turnFirstQuadrantSprite;
+                _nextSprite = _horizontalSprite;
+            }
+            else if (MoveDirection == Vector2.left)
+            {
+                renderer.sprite = PreviousMoveDirection == Vector2.up ? _turnThirdQuadrantSprite : _turnSecondQuadrantSprite;
+                _nextSprite = _horizontalSprite;
+            }
         }
 
         /// <summary>
-        /// This Coroutine keeps a temporary sprite with snake's movement time duration, then changes it to another sprite.
+        /// This method updates the block's direction and sprite, according to the snake's head direction.
+        /// This method should be utilized when a new block of the snake's body is instantiated.
         /// </summary>
-        /// <param name="tempSprite">Temporary Sprite</param>
-        /// <param name="newSprite">New Sprite</param>
-        /// <returns></returns>
-        private IEnumerator SetTurnSprite(Sprite turnSprite, Sprite newSprite)
-        {
-            renderer.sprite = turnSprite != null ? turnSprite : newSprite;
-            yield return new WaitUntil(() => IsMoving);
-            renderer.sprite = newSprite;
-            UpdateNextBlock();
-        }
-
         public void SyncWithHeadDirection()
         {
             var snakeHead = GetFirstSnakeElementByTag("SnakeHead");

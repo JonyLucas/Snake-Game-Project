@@ -18,6 +18,11 @@ namespace Game.Player.Movement
             _forwardSprite = _sprites.headForwardSprite;
         }
 
+        private void Start()
+        {
+            InvokeRepeating("Movement", 0, StopMove); // Coroutine could be used as well
+        }
+
         public override void SetNextBodyBlock(GameObject nextBlock = null)
         {
             if (nextBlock == null)
@@ -33,18 +38,18 @@ namespace Game.Player.Movement
                 nextBlock.transform.localPosition = transform.localPosition;
 
                 UpdateHeadPosition();
+
                 nextBlock.SetActive(true);
                 nextBlockMoveScript.SyncWithHeadDirection();
-                UpdateNextBlock();
+                UpdateBodyPositionAndDirection();
                 nextBlockMoveScript.SetNextBodyBlock(oldNextBlock);
             }
         }
 
-        protected override void UpdateSnakeBlock()
+        protected override void BlockTurnDirection()
         {
             UpdateHeadPosition();
-            UpdateBodyPosition();
-            UpdateNextBlock();
+            UpdateBodyPositionAndDirection(true);
         }
 
         public void UpdateHeadPosition()
@@ -74,17 +79,6 @@ namespace Game.Player.Movement
                 newPosition.x -= Speed;
                 transform.localPosition = newPosition;
                 renderer.sprite = _backwardSprite;
-            }
-        }
-
-        private void UpdateBodyPosition()
-        {
-            var translatePosition = (Vector3)PreviousMoveDirection * Speed;
-            var currentBlock = nextBodyBlock;
-            while (currentBlock != null)
-            {
-                currentBlock.transform.localPosition += translatePosition;
-                currentBlock = currentBlock.GetComponent<BaseMovement>().NextBodyBlock;
             }
         }
     }

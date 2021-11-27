@@ -22,7 +22,7 @@ namespace Game.Player.Movement
             nextBodyBlock = null;
         }
 
-        protected override void UpdateSnakeBlock()
+        protected override void BlockTurnDirection()
         {
             if (MoveDirection == Vector2.up)
             {

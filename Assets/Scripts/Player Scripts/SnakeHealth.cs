@@ -1,4 +1,5 @@
 using Game.Player.Movement;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -18,7 +19,10 @@ public class SnakeHealth : MonoBehaviour
     {
         if (collision.CompareTag("SnakeBodyBlock") || collision.CompareTag("SnakeTail"))
         {
-            Destroy(gameObject.transform.parent.gameObject);
+            if (collision.gameObject != _baseMovementScript.NextBodyBlock)
+            {
+                Destroy(gameObject.transform.parent.gameObject);
+            }
         }
     }
 
@@ -28,7 +32,6 @@ public class SnakeHealth : MonoBehaviour
             .GetComponentsInChildren<Transform>()
             .FirstOrDefault(x => x.CompareTag("SnakeBody"));
 
-        //var previousHeadPosition = transform.localPosition;
         var newBlock = Instantiate(_bodyBlockPrefab, snakeBodyObject);
         newBlock.SetActive(false);
         _baseMovementScript.SetNextBodyBlock(newBlock);

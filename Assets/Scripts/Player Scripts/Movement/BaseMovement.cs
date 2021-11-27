@@ -1,6 +1,5 @@
 using Game.Extensions;
 using Game.ScriptableObjects;
-using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -20,32 +19,30 @@ namespace Game.Player.Movement
         private float _xLimit;
         private float _yLimit;
 
-        private bool _isMoving;
         private bool _canChangeDirection;
 
+        private Vector3 _previousPosition = Vector3.zero;
         private Vector2 _previousMoveDirection = Vector2.zero;
         private Vector2 _moveDirection = Vector2.right;
 
-        protected SpriteRenderer renderer;
-
-        [SerializeField]
+        protected new SpriteRenderer renderer;
         protected GameObject nextBodyBlock;
 
         // Properties
-        public bool CanChangeDirection
-        { get { return _canChangeDirection; } }
-
-        public bool IsMoving
-        { get { return _isMoving; } }
-
         public float Speed
         { get { return _speed; } }
 
         public float StopMove
         { get { return _stopMove; } }
 
+        public bool CanChangeDirection
+        { get { return _canChangeDirection; } }
+
         public GameObject NextBodyBlock
         { get { return nextBodyBlock; } }
+
+        public Vector3 PreviousPosition
+        { get { return _previousPosition; } }
 
         public Vector2 PreviousMoveDirection
         { get { return _previousMoveDirection; } }
@@ -64,7 +61,6 @@ namespace Game.Player.Movement
             _xLimit = _moveData.XLimit;
             _yLimit = _moveData.YLimit;
 
-            _isMoving = false;
             _canChangeDirection = true;
 
             renderer = GetComponent<SpriteRenderer>();
@@ -77,27 +73,14 @@ namespace Game.Player.Movement
 
         public abstract void SetNextBodyBlock(GameObject nextBlock = null);
 
-        private void Start()
+        protected virtual void Movement()
         {
-            StartCoroutine(Movement());
+            Translate();
+            CheckSpaceLimits();
+            UpdateBodyPositionAndDirection();
         }
 
-        private IEnumerator Movement()
-        {
-            while (gameObject.activeInHierarchy)
-            {
-                yield return new WaitForSeconds(_stopMove);
-                _isMoving = true;
-
-                Translate(); //transform.Translate(_moveDirection, Space.Self) Also Works
-                CheckSpaceLimits();
-
-                yield return new WaitForSeconds(0.01f);
-                _isMoving = false;
-            }
-        }
-
-        private void Translate()
+        protected void Translate()
         {
             var newPosition = transform.localPosition;
             var speedVector = _moveDirection * _speed;
@@ -106,7 +89,7 @@ namespace Game.Player.Movement
             transform.localPosition = newPosition;
         }
 
-        private void CheckSpaceLimits()
+        protected void CheckSpaceLimits()
         {
             if (Mathf.Abs(transform.localPosition.x) > _xLimit)
             {
@@ -123,41 +106,35 @@ namespace Game.Player.Movement
             }
         }
 
+        protected void UpdateBodyPositionAndDirection(bool isTurning = false)
+        {
+            _canChangeDirection = true;
+            if (nextBodyBlock != null)
+            {
+                nextBodyBlock.GetComponent<BaseMovement>().Movement();
+                if (isTurning)
+                {
+                    nextBodyBlock.GetComponent<BaseMovement>().ChangeDirection(_moveDirection);
+                }
+            }
+        }
+
         /// <summary>
         /// Changes the direction of the snake's block, update its sprite and then update the subsequent block.
         /// </summary>
         /// <param name="newDirection"></param>
         public void ChangeDirection(Vector2 newDirection)
         {
-            StartCoroutine(ChangeDirectionCoroutine(newDirection));
+            _canChangeDirection = false;
+            _previousMoveDirection = _moveDirection;
+            MoveDirection = newDirection;
+            BlockTurnDirection();
         }
 
         /// <summary>
-        /// This Coroutine is used to synchronize the change of direction with the time that the snake's block is moved.
-        /// And also synchronize the player input with the movement rate of the snake's block (_stopMove).
+        /// This method updates the block's sprite according to the previous block direction.
         /// </summary>
-        /// <param name="newDirection"></param>
-        /// <returns></returns>
-        private IEnumerator ChangeDirectionCoroutine(Vector2 newDirection, bool onlyNextBlock = false)
-        {
-            _canChangeDirection = false;
-            yield return new WaitUntil(() => !_isMoving);
-
-            _previousMoveDirection = _moveDirection;
-            MoveDirection = newDirection;
-            UpdateSnakeBlock();
-        }
-
-        protected abstract void UpdateSnakeBlock();
-
-        protected void UpdateNextBlock()
-        {
-            _canChangeDirection = true;
-            if (nextBodyBlock != null)
-            {
-                nextBodyBlock.GetComponent<BaseMovement>().ChangeDirection(_moveDirection);
-            }
-        }
+        protected abstract void BlockTurnDirection();
 
         protected GameObject GetFirstSnakeElementByTag(string tag)
         {

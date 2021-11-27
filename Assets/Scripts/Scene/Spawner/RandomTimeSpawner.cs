@@ -5,10 +5,7 @@ namespace Game.Spawner
 {
     public class RandomTimeSpawner : BaseSpawner
     {
-        [SerializeField]
         private float _minTimeRange;
-
-        [SerializeField]
         private float _maxTimeRange;
 
         protected override void SetData()
