@@ -41,7 +41,6 @@ namespace Game.Player.Movement
 
                 nextBlock.SetActive(true);
                 nextBlockMoveScript.SyncWithHeadDirection();
-                UpdateBodyPositionAndDirection();
                 nextBlockMoveScript.SetNextBodyBlock(oldNextBlock);
             }
         }
