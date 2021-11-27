@@ -123,4 +123,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce910c7c02bec134da2f6c50bf13250b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _snakeBodyBlock: {fileID: 0}
+  _scoreValue: 10
+  _event: {fileID: 11400000, guid: d12177cfda0489547b1077a40eda1e4d, type: 2}

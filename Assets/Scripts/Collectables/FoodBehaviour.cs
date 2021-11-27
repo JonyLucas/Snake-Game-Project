@@ -9,7 +9,7 @@ namespace Game.Collectables
             var healthScript = otherGameObject.GetComponent<SnakeHealth>();
             healthScript.SpawnBodyBlock();
             gameObject.SetActive(false);
-            _event.OnOcurred(this);
+            _event.OnOcurred(this); // Dispatches the event, for the subscribed methods be runned
         }
     }
 }

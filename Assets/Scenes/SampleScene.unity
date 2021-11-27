@@ -689,8 +689,8 @@ GameObject:
   - component: {fileID: 1741921063}
   - component: {fileID: 1741921065}
   - component: {fileID: 1741921064}
-  - component: {fileID: 1741921067}
   - component: {fileID: 1741921066}
+  - component: {fileID: 1741921067}
   m_Layer: 5
   m_Name: ScoreText
   m_TagString: Untagged
@@ -780,20 +780,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1741921062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02f477724629f6043b161d2a81fcbeb9, type: 3}
+  m_Script: {fileID: 11500000, guid: b95cbe56115d3b14f896ebb8b9dc4a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _event: {fileID: 11400000, guid: dace9eff03da40143ba07508e589e027, type: 2}
+  _event: {fileID: 11400000, guid: d12177cfda0489547b1077a40eda1e4d, type: 2}
   _unityEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1741921062}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1741921066}
+        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
+        m_MethodName: UpdateScore
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

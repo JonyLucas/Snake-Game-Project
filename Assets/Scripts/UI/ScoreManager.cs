@@ -1,18 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
+using Game.Collectables;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private int _currentScore;
+
+    private Text _textComponent;
+
+    private void Start()
     {
-        
+        _currentScore = 0;
+        _textComponent = GetComponent<Text>();
+        SetText();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateScore(BaseCollectableBehaviour collactableScript)
     {
-        
+        _currentScore += collactableScript.ScoreValue;
+        SetText();
+    }
+
+    private void SetText()
+    {
+        _textComponent.text = $"Score: {_currentScore}";
     }
 }
