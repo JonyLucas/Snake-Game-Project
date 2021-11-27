@@ -23,25 +23,32 @@ namespace Game.Player.Movement
         private bool _isMoving;
         private bool _canChangeDirection;
 
-        protected Vector2 previousMoveDirection = Vector2.zero;
+        private Vector2 _previousMoveDirection = Vector2.zero;
         private Vector2 _moveDirection = Vector2.right;
 
+        protected SpriteRenderer renderer;
+
+        [SerializeField]
         protected GameObject nextBodyBlock;
 
         // Properties
-        public float BlockSize { get; set; }
-
         public bool CanChangeDirection
         { get { return _canChangeDirection; } }
 
-        protected bool IsMoving
+        public bool IsMoving
         { get { return _isMoving; } }
 
-        protected float Speed
+        public float Speed
         { get { return _speed; } }
+
+        public float StopMove
+        { get { return _stopMove; } }
 
         public GameObject NextBodyBlock
         { get { return nextBodyBlock; } }
+
+        public Vector2 PreviousMoveDirection
+        { get { return _previousMoveDirection; } }
 
         public Vector2 MoveDirection
         {
@@ -60,9 +67,7 @@ namespace Game.Player.Movement
             _isMoving = false;
             _canChangeDirection = true;
 
-            // Get the size of the block in Unity's Unit
-            var renderer = gameObject.GetComponent<SpriteRenderer>();
-            BlockSize = renderer.sprite.rect.width / renderer.sprite.pixelsPerUnit;
+            renderer = GetComponent<SpriteRenderer>();
 
             SetSprites();
             SetNextBodyBlock();
@@ -70,7 +75,7 @@ namespace Game.Player.Movement
 
         protected abstract void SetSprites();
 
-        protected abstract void SetNextBodyBlock();
+        public abstract void SetNextBodyBlock(GameObject nextBlock = null);
 
         private void Start()
         {
@@ -133,12 +138,12 @@ namespace Game.Player.Movement
         /// </summary>
         /// <param name="newDirection"></param>
         /// <returns></returns>
-        private IEnumerator ChangeDirectionCoroutine(Vector2 newDirection)
+        private IEnumerator ChangeDirectionCoroutine(Vector2 newDirection, bool onlyNextBlock = false)
         {
             _canChangeDirection = false;
             yield return new WaitUntil(() => !_isMoving);
 
-            previousMoveDirection = _moveDirection;
+            _previousMoveDirection = _moveDirection;
             MoveDirection = newDirection;
             UpdateSnakeBlock();
         }

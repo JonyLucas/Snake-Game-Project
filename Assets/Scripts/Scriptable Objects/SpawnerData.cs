@@ -16,6 +16,9 @@ namespace Game.ScriptableObjects
         private GameObject _spawnObjectPrefab;
 
         [SerializeField]
+        private int _instancesLimit;
+
+        [SerializeField]
         private float _xLimit;
 
         [SerializeField]
@@ -32,6 +35,9 @@ namespace Game.ScriptableObjects
 
         public GameObject SpawnObjectPrefab
         { get { return _spawnObjectPrefab; } }
+
+        public int InstancesLimit
+        { get { return _instancesLimit; } }
 
         public float XLimit
         { get { return _xLimit; } }

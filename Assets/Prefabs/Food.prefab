@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6150636126332657408}
   - component: {fileID: 6150636126332657409}
   - component: {fileID: 6150636126332657414}
+  - component: {fileID: -3903006244802156322}
   m_Layer: 0
   m_Name: Food
   m_TagString: Collectable
@@ -110,3 +111,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-3903006244802156322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6150636126332657415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce910c7c02bec134da2f6c50bf13250b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snakeBodyBlock: {fileID: 0}

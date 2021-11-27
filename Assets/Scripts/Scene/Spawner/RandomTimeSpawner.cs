@@ -24,13 +24,7 @@ namespace Game.Spawner
             {
                 yield return new WaitForSeconds(spwanTime);
                 spwanTime = Random.Range(_minTimeRange, _maxTimeRange);
-                if (spawnCondition)
-                {
-                    var newPosition = Vector3.zero;
-                    newPosition.x = Random.Range(-xLimit, xLimit);
-                    newPosition.y = Random.Range(-yLimit, yLimit);
-                    Instantiate(spawnObjectPrefab, newPosition, Quaternion.identity);
-                }
+                SpawnInPosition();
             }
         }
     }

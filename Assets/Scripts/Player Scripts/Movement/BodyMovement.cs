@@ -22,8 +22,14 @@ namespace Game.Player.Movement
             _horizontalSprite = _sprites.bodyHorizontalSprite;
         }
 
-        protected override void SetNextBodyBlock()
+        public override void SetNextBodyBlock(GameObject nextBlock = null)
         {
+            if (nextBlock != null)
+            {
+                nextBodyBlock = nextBlock;
+                return;
+            }
+
             var index = transform.GetSiblingIndex();
             if (index == transform.parent.childCount - 1)
             {
@@ -41,25 +47,32 @@ namespace Game.Player.Movement
             Sprite turnSprite = null;
             Sprite nextSprite = null;
 
-            if (MoveDirection == Vector2.up)
+            if (PreviousMoveDirection != MoveDirection)
             {
-                turnSprite = previousMoveDirection == Vector2.right ? _turnSecondQuadrantSprite : _turnFirstQuadrantSprite;
-                nextSprite = _verticalSprite;
+                if (MoveDirection == Vector2.up)
+                {
+                    turnSprite = PreviousMoveDirection == Vector2.right ? _turnSecondQuadrantSprite : _turnFirstQuadrantSprite;
+                    nextSprite = _verticalSprite;
+                }
+                else if (MoveDirection == Vector2.down)
+                {
+                    turnSprite = PreviousMoveDirection == Vector2.right ? _turnThirdQuadrantSprite : _turnFourthQuadrantSprite;
+                    nextSprite = _verticalSprite;
+                }
+                else if (MoveDirection == Vector2.right)
+                {
+                    turnSprite = PreviousMoveDirection == Vector2.up ? _turnFourthQuadrantSprite : _turnFirstQuadrantSprite;
+                    nextSprite = _horizontalSprite;
+                }
+                else if (MoveDirection == Vector2.left)
+                {
+                    turnSprite = PreviousMoveDirection == Vector2.up ? _turnThirdQuadrantSprite : _turnSecondQuadrantSprite;
+                    nextSprite = _horizontalSprite;
+                }
             }
-            else if (MoveDirection == Vector2.down)
+            else
             {
-                turnSprite = previousMoveDirection == Vector2.right ? _turnThirdQuadrantSprite : _turnFourthQuadrantSprite;
-                nextSprite = _verticalSprite;
-            }
-            else if (MoveDirection == Vector2.right)
-            {
-                turnSprite = previousMoveDirection == Vector2.up ? _turnFourthQuadrantSprite : _turnFirstQuadrantSprite;
-                nextSprite = _horizontalSprite;
-            }
-            else if (MoveDirection == Vector2.left)
-            {
-                turnSprite = previousMoveDirection == Vector2.up ? _turnThirdQuadrantSprite : _turnSecondQuadrantSprite;
-                nextSprite = _horizontalSprite;
+                nextSprite = GetComponent<SpriteRenderer>().sprite;
             }
 
             StartCoroutine(SetTurnSprite(turnSprite, nextSprite));
@@ -73,11 +86,26 @@ namespace Game.Player.Movement
         /// <returns></returns>
         private IEnumerator SetTurnSprite(Sprite turnSprite, Sprite newSprite)
         {
-            var renderer = GetComponent<SpriteRenderer>();
-            renderer.sprite = turnSprite;
+            renderer.sprite = turnSprite != null ? turnSprite : newSprite;
             yield return new WaitUntil(() => IsMoving);
             renderer.sprite = newSprite;
             UpdateNextBlock();
+        }
+
+        public void SyncWithHeadDirection()
+        {
+            var snakeHead = GetFirstSnakeElementByTag("SnakeHead");
+            var moveScript = snakeHead.GetComponent<BaseMovement>();
+            MoveDirection = moveScript.MoveDirection;
+
+            if (MoveDirection == Vector2.up || MoveDirection == Vector2.down)
+            {
+                renderer.sprite = _verticalSprite;
+            }
+            else if (MoveDirection == Vector2.right || MoveDirection == Vector2.left)
+            {
+                renderer.sprite = _horizontalSprite;
+            }
         }
     }
 }

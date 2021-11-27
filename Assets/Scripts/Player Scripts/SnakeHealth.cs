@@ -1,9 +1,10 @@
 using Game.Player.Movement;
+using System.Linq;
 using UnityEngine;
 
 public class SnakeHealth : MonoBehaviour
 {
-    private BaseMovement _baseMovementScript;
+    private HeadMovement _baseMovementScript;
 
     [SerializeField]
     private GameObject _bodyBlockPrefab;
@@ -15,14 +16,21 @@ public class SnakeHealth : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("SnakeBodyBlock"))
+        if (collision.CompareTag("SnakeBodyBlock") || collision.CompareTag("SnakeTail"))
         {
             Destroy(gameObject.transform.parent.gameObject);
         }
+    }
 
-        if (collision.CompareTag("Collectable"))
-        {
-            Destroy(collision.gameObject);
-        }
+    public void SpawnBodyBlock()
+    {
+        var snakeBodyObject = transform.parent
+            .GetComponentsInChildren<Transform>()
+            .FirstOrDefault(x => x.CompareTag("SnakeBody"));
+
+        //var previousHeadPosition = transform.localPosition;
+        var newBlock = Instantiate(_bodyBlockPrefab, snakeBodyObject);
+        newBlock.SetActive(false);
+        _baseMovementScript.SetNextBodyBlock(newBlock);
     }
 }

@@ -18,49 +18,68 @@ namespace Game.Player.Movement
             _forwardSprite = _sprites.headForwardSprite;
         }
 
-        protected override void SetNextBodyBlock()
+        public override void SetNextBodyBlock(GameObject nextBlock = null)
         {
-            nextBodyBlock = GetFirstSnakeElementByTag("SnakeBodyBlock");
+            if (nextBlock == null)
+            {
+                nextBodyBlock = GetFirstSnakeElementByTag("SnakeBodyBlock");
+            }
+            else
+            {
+                var nextBlockMoveScript = nextBlock.GetComponent<BodyMovement>();
+
+                var oldNextBlock = NextBodyBlock;
+                nextBodyBlock = nextBlock;
+                nextBlock.transform.localPosition = transform.localPosition;
+
+                UpdateHeadPosition();
+                nextBlock.SetActive(true);
+                nextBlockMoveScript.SyncWithHeadDirection();
+                UpdateNextBlock();
+                nextBlockMoveScript.SetNextBodyBlock(oldNextBlock);
+            }
         }
 
         protected override void UpdateSnakeBlock()
         {
-            var renderer = GetComponent<SpriteRenderer>();
+            UpdateHeadPosition();
+            UpdateBodyPosition();
+            UpdateNextBlock();
+        }
+
+        public void UpdateHeadPosition()
+        {
             var newPosition = transform.localPosition;
-            var translatePosition = previousMoveDirection * Speed;
 
             if (MoveDirection == Vector2.up)
             {
-                newPosition.y += BlockSize;
+                newPosition.y += Speed;
                 transform.localPosition = newPosition;
                 renderer.sprite = _upwardSprite;
             }
             else if (MoveDirection == Vector2.down)
             {
-                newPosition.y -= BlockSize;
+                newPosition.y -= Speed;
                 transform.localPosition = newPosition;
                 renderer.sprite = _downwardSprite;
             }
             else if (MoveDirection == Vector2.right)
             {
-                newPosition.x += BlockSize;
+                newPosition.x += Speed;
                 transform.localPosition = newPosition;
                 renderer.sprite = _forwardSprite;
             }
             else if (MoveDirection == Vector2.left)
             {
-                newPosition.x -= BlockSize;
+                newPosition.x -= Speed;
                 transform.localPosition = newPosition;
                 renderer.sprite = _backwardSprite;
             }
-
-            UpdateBodyPosition(translatePosition);
-            UpdateNextBlock();
         }
 
-        private void UpdateBodyPosition(Vector3 translatePosition)
+        private void UpdateBodyPosition()
         {
-            Debug.Log("Translate Body: " + translatePosition);
+            var translatePosition = (Vector3)PreviousMoveDirection * Speed;
             var currentBlock = nextBodyBlock;
             while (currentBlock != null)
             {
