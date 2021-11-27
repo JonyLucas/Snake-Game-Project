@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace Game.ScriptableObjects.Events
 {
+    /// <summary>
+    /// This class implements the observer pattern, which calls the methods that are listening to this specific event.
+    /// These methods are invoked when this event occurs.
+    /// This generic class allows to pass the specific object of type T as an argument to the methods, whenever the event occurs.
+    /// </summary>
     public class GenericGameEvent<T> : ScriptableObject where T : class
     {
         private readonly List<GenericEventListener<T>> _listeners = new List<GenericEventListener<T>>();
@@ -18,9 +23,9 @@ namespace Game.ScriptableObjects.Events
             _listeners.Remove(listener);
         }
 
-        public void OnOcurred(T monoBehaviouScript)
+        public void OnOcurred(T instance)
         {
-            _listeners.ForEach(listener => listener.OnEventOccurs(monoBehaviouScript));
+            _listeners.ForEach(listener => listener.OnEventOccurs(instance));
         }
     }
 }

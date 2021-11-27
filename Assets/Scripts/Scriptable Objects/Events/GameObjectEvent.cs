@@ -1,18 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameObjectEvent : MonoBehaviour
+namespace Game.ScriptableObjects.Events
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GameObjectEvent : GenericGameEvent<GameObject>
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

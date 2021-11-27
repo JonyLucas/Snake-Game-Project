@@ -1,18 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class GameObjectListener : MonoBehaviour
+namespace Game.Observer.Listeners
 {
-    // Start is called before the first frame update
-    void Start()
+    [Serializable]
+    public class GameObjectListener : GenericEventListener<GameObject>
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
