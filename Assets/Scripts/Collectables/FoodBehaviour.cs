@@ -2,16 +2,14 @@ using UnityEngine;
 
 namespace Game.Collectables
 {
-    public class FoodBehaviour : MonoBehaviour
+    public class FoodBehaviour : BaseCollectableBehaviour
     {
-        private void OnTriggerEnter2D(Collider2D collision)
+        protected override void PerformAction(GameObject otherGameObject)
         {
-            if (collision.CompareTag("SnakeHead"))
-            {
-                var healthScript = collision.GetComponent<SnakeHealth>();
-                healthScript.SpawnBodyBlock();
-                gameObject.SetActive(false);
-            }
+            var healthScript = otherGameObject.GetComponent<SnakeHealth>();
+            healthScript.SpawnBodyBlock();
+            gameObject.SetActive(false);
+            _event.OnOcurred(this);
         }
     }
 }

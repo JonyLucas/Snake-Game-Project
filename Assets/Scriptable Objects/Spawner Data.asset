@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spwanTime: 1
   _spawnObjectPrefab: {fileID: 6150636126332657415, guid: 2d41a315c026a59498d48c770729e346, type: 3}
-  _instancesLimit: 3
+  _instancesLimit: 5
   _xLimit: 8
   _yLimit: 4
   _minTimeRange: 3
