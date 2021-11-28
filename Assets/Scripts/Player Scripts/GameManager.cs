@@ -1,3 +1,4 @@
+using Game.Player.PlayerInput;
 using Game.ScriptableObjects;
 using Game.Spawner;
 using System.Linq;
@@ -18,15 +19,7 @@ public class GameManager : MonoBehaviour
     private GameObject _snake2Prefab;
 
     [SerializeField]
-    private Vector3 _initialPlayer1Position;
-
-    [SerializeField]
-    private Vector3 _initialPlayer2Position;
-
-    [SerializeField]
     private GameObject _spawner;
-
-    private bool _isGameOver = false;
 
     public void StartGame(bool isMultiplayer)
     {
@@ -35,16 +28,15 @@ public class GameManager : MonoBehaviour
         {
             CreatePlayer(false);
         }
-        ActivateSpawner();
+        ActivateSpawner(true);
     }
 
     private void CreatePlayer(bool isPlayer1)
     {
         var inputManager = CreateInputManager();
         var prefab = isPlayer1 ? _snakePrefab : _snake2Prefab;
-        var position = isPlayer1 ? _initialPlayer1Position : _initialPlayer2Position;
         var control = isPlayer1 ? _playerControl : _player2Control;
-        var snake = Instantiate(prefab, position, Quaternion.identity);
+        var snake = Instantiate(prefab);
 
         inputManager.GetComponent<InputManager>().SetHeadAndControl(snake, control);
     }
@@ -56,10 +48,16 @@ public class GameManager : MonoBehaviour
         return Instantiate(inputManager, transform);
     }
 
-    private void ActivateSpawner()
+    private void ActivateSpawner(bool activate)
     {
         _spawner.GetComponents<BaseSpawner>()
             .ToList()
-            .ForEach(spwaner => spwaner.SetSpawnCondition(true));
+            .ForEach(spwaner => spwaner.SetSpawnCondition(activate));
+    }
+
+    public void GameOver()
+    {
+        // Disables the collectables and the spawner
+        ActivateSpawner(false);
     }
 }

@@ -12,16 +12,22 @@ public class ScoreManager : MonoBehaviour
     {
         _currentScore = 0;
         _textComponent = GetComponent<Text>();
-        SetText();
+        UpdateText();
     }
 
     public void UpdateScore(BaseCollectableBehaviour collactableScript)
     {
         _currentScore += collactableScript.ScoreValue;
-        SetText();
+        UpdateText();
     }
 
-    private void SetText()
+    public void ResetScore()
+    {
+        _currentScore = 0;
+        UpdateText();
+    }
+
+    private void UpdateText()
     {
         _textComponent.text = $"Score: {_currentScore}";
     }

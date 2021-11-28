@@ -4,56 +4,63 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+namespace Game.Player.PlayerInput
 {
-    [SerializeField]
-    private PlayerControl _playerControl;
-
-    [SerializeField]
-    private GameObject _snakeHead;
-
-    private Dictionary<KeyCode, BaseCommand> _keyCommands;
-
-    private List<KeyCode> _keys;
-
-    private bool _isInitialized = false;
-
-    public void SetHeadAndControl(GameObject snake, PlayerControl control)
+    /// <summary>
+    /// This class reads the player's input and execute the commands associated with the pressed key,
+    /// moving the player's snake or executing a powerup.
+    /// </summary>
+    public class InputManager : MonoBehaviour
     {
-        var snakeHead = snake.transform
-            .GetComponentsInChildren<Transform>()
-            .FirstOrDefault(x => x.CompareTag("SnakeHead"));
+        [SerializeField]
+        private PlayerControl _playerControl;
 
-        _snakeHead = snakeHead.gameObject;
-        _playerControl = control;
-        InitilizeCommands();
-    }
+        [SerializeField]
+        private GameObject _snakeHead;
 
-    private void InitilizeCommands()
-    {
-        _keyCommands = new Dictionary<KeyCode, BaseCommand>();
-        _keys = new List<KeyCode>();
+        private Dictionary<KeyCode, BaseCommand> _keyCommands;
 
-        _playerControl.Commands
-            .Where(x => x.AssociatedKey != KeyCode.None)
-            .ToList()
-            .ForEach(command =>
-            {
-                _keys.Add(command.AssociatedKey);
-                _keyCommands.Add(command.AssociatedKey, command);
-            });
+        private List<KeyCode> _keys;
 
-        _isInitialized = true;
-    }
+        private bool _isInitialized = false;
 
-    private void Update()
-    {
-        if (_isInitialized)
+        public void SetHeadAndControl(GameObject snake, PlayerControl control)
         {
-            var key = _keys?.FirstOrDefault(x => Input.GetKeyDown(x));
-            if (key != null && key != KeyCode.None)
+            var snakeHead = snake.transform
+                .GetComponentsInChildren<Transform>()
+                .FirstOrDefault(x => x.CompareTag("SnakeHead"));
+
+            _snakeHead = snakeHead.gameObject;
+            _playerControl = control;
+            InitilizeCommands();
+        }
+
+        private void InitilizeCommands()
+        {
+            _keyCommands = new Dictionary<KeyCode, BaseCommand>();
+            _keys = new List<KeyCode>();
+
+            _playerControl.Commands
+                .Where(x => x.AssociatedKey != KeyCode.None)
+                .ToList()
+                .ForEach(command =>
+                {
+                    _keys.Add(command.AssociatedKey);
+                    _keyCommands.Add(command.AssociatedKey, command);
+                });
+
+            _isInitialized = true;
+        }
+
+        private void Update()
+        {
+            if (_isInitialized)
             {
-                _keyCommands[key.Value].Execute(_snakeHead);
+                var key = _keys?.FirstOrDefault(x => Input.GetKeyDown(x));
+                if (key != null && key != KeyCode.None)
+                {
+                    _keyCommands[key.Value].Execute(_snakeHead);
+                }
             }
         }
     }

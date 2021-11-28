@@ -14,6 +14,8 @@ namespace Game.Player.Movement
         [SerializeField]
         protected PlayerSprites _sprites;
 
+        protected string _snakeTag = "Player";
+
         private float _speed;
         private float _stopMove;
         private float _xLimit;
@@ -139,7 +141,7 @@ namespace Game.Player.Movement
         protected GameObject GetFirstSnakeElementByTag(string tag)
         {
             // Gets the player object that contains this gameObject's transform.
-            var snakeTransform = GameObject.FindGameObjectsWithTag("Player")
+            var snakeTransform = GameObject.FindGameObjectsWithTag(_snakeTag)
                 .FirstOrDefault(x => x.transform.GetComponentsInChildren<Transform>().Contains(transform));
 
             // Gets the first child with the specified tag.

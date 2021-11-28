@@ -9,6 +9,7 @@ TagManager:
   - SnakeBodyBlock
   - SnakeTail
   - Collectable
+  - EnemySnake
   layers:
   - Default
   - TransparentFX
