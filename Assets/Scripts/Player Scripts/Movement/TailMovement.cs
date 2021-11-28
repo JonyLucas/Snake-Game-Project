@@ -15,6 +15,24 @@ namespace Game.Player.Movement
             _downwardSprite = _sprites.tailDownwardSprite;
             _backwardSprite = _sprites.tailBackwardSprite;
             _forwardSprite = _sprites.tailForwardSprite;
+
+            // Set Player sprite
+            if (MoveDirection == Vector2.up)
+            {
+                renderer.sprite = _upwardSprite;
+            }
+            else if (MoveDirection == Vector2.down)
+            {
+                renderer.sprite = _downwardSprite;
+            }
+            else if (MoveDirection == Vector2.right)
+            {
+                renderer.sprite = _forwardSprite;
+            }
+            else if (MoveDirection == Vector2.left)
+            {
+                renderer.sprite = _backwardSprite;
+            }
         }
 
         public override void SetNextBodyBlock(GameObject nextBlock = null)

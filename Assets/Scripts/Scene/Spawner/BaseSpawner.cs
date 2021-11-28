@@ -1,4 +1,5 @@
 using Game.ScriptableObjects;
+using Game.ScriptableObjects.Events;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -10,8 +11,11 @@ namespace Game.Spawner
         [SerializeField]
         protected SpawnerData spawnerData;
 
+        [SerializeField]
+        private GameObjectEvent _spawnEvent;
+
         protected float spwanTime;
-        protected bool spawnCondition = true;
+        protected bool spawnCondition = false;
         protected GameObject spawnObjectPrefab;
         protected int instancesLimit;
         protected float xLimit;
@@ -34,6 +38,11 @@ namespace Game.Spawner
             instancesLimit = spawnerData.InstancesLimit;
             xLimit = spawnerData.XLimit;
             yLimit = spawnerData.YLimit;
+        }
+
+        public void SetSpawnCondition(bool conditionValue)
+        {
+            spawnCondition = conditionValue;
         }
 
         private void InitilizeObjectPooling()
@@ -81,11 +90,13 @@ namespace Game.Spawner
                 {
                     instance.SetActive(true);
                     instance.transform.position = newPosition;
+                    _spawnEvent.OnOcurred(instance);
                 }
             }
             else
             {
-                Instantiate(spawnObjectPrefab, newPosition, Quaternion.identity);
+                var instance = Instantiate(spawnObjectPrefab, newPosition, Quaternion.identity);
+                _spawnEvent.OnOcurred(instance);
             }
         }
     }

@@ -16,6 +16,24 @@ namespace Game.Player.Movement
             _downwardSprite = _sprites.headDownwardSprite;
             _backwardSprite = _sprites.headBackwardSprite;
             _forwardSprite = _sprites.headForwardSprite;
+
+            // Set Player sprite
+            if (MoveDirection == Vector2.up)
+            {
+                renderer.sprite = _upwardSprite;
+            }
+            else if (MoveDirection == Vector2.down)
+            {
+                renderer.sprite = _downwardSprite;
+            }
+            else if (MoveDirection == Vector2.right)
+            {
+                renderer.sprite = _forwardSprite;
+            }
+            else if (MoveDirection == Vector2.left)
+            {
+                renderer.sprite = _backwardSprite;
+            }
         }
 
         private void Start()

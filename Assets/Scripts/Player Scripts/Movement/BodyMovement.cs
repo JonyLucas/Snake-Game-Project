@@ -23,6 +23,16 @@ namespace Game.Player.Movement
             _turnFourthQuadrantSprite = _sprites.turnBodyFourthQuadrantSprite;
             _verticalSprite = _sprites.bodyVerticalSprite;
             _horizontalSprite = _sprites.bodyHorizontalSprite;
+
+            // Set Player sprite
+            if (MoveDirection == Vector2.up || MoveDirection == Vector2.down)
+            {
+                renderer.sprite = _verticalSprite;
+            }
+            else if (MoveDirection == Vector2.right || MoveDirection == Vector2.left)
+            {
+                renderer.sprite = _horizontalSprite;
+            }
         }
 
         protected override void Movement()

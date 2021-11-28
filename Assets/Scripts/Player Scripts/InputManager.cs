@@ -9,19 +9,31 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private PlayerControl _playerControl;
 
-    private readonly Dictionary<KeyCode, BaseCommand> _keyCommands = new Dictionary<KeyCode, BaseCommand>();
-
-    private readonly List<KeyCode> _keys = new List<KeyCode>();
-
+    [SerializeField]
     private GameObject _snakeHead;
 
-    [SerializeField]
-    private GameObject _snakePrefab;
+    private Dictionary<KeyCode, BaseCommand> _keyCommands;
 
-    private bool _isGameOver = false;
+    private List<KeyCode> _keys;
 
-    private void Awake()
+    private bool _isInitialized = false;
+
+    public void SetHeadAndControl(GameObject snake, PlayerControl control)
     {
+        var snakeHead = snake.transform
+            .GetComponentsInChildren<Transform>()
+            .FirstOrDefault(x => x.CompareTag("SnakeHead"));
+
+        _snakeHead = snakeHead.gameObject;
+        _playerControl = control;
+        InitilizeCommands();
+    }
+
+    private void InitilizeCommands()
+    {
+        _keyCommands = new Dictionary<KeyCode, BaseCommand>();
+        _keys = new List<KeyCode>();
+
         _playerControl.Commands
             .Where(x => x.AssociatedKey != KeyCode.None)
             .ToList()
@@ -30,19 +42,19 @@ public class InputManager : MonoBehaviour
                 _keys.Add(command.AssociatedKey);
                 _keyCommands.Add(command.AssociatedKey, command);
             });
-    }
 
-    private void Start()
-    {
-        _snakeHead = GameObject.FindGameObjectWithTag("SnakeHead");
+        _isInitialized = true;
     }
 
     private void Update()
     {
-        var key = _keys?.FirstOrDefault(x => Input.GetKeyDown(x));
-        if (key != null && key != KeyCode.None)
+        if (_isInitialized)
         {
-            _keyCommands[key.Value].Execute(_snakeHead);
+            var key = _keys?.FirstOrDefault(x => Input.GetKeyDown(x));
+            if (key != null && key != KeyCode.None)
+            {
+                _keyCommands[key.Value].Execute(_snakeHead);
+            }
         }
     }
 }
