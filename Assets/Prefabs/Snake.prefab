@@ -101,7 +101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveData: {fileID: 11400000, guid: 2920be906ea1aad4a9827910a4e0f472, type: 2}
   _sprites: {fileID: 11400000, guid: 56c2e8a5243a4884e9d52bda20675a22, type: 2}
-  nextBodyBlock: {fileID: 0}
 --- !u!61 &1401251458996996207
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -162,6 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bodyBlockPrefab: {fileID: 2004648392446483777, guid: 9b91d1c27fcf69e4ea472a4b1bac5692, type: 3}
+  _event: {fileID: 11400000, guid: 1ae14f2f7dc1a604282a46a8e3a848e8, type: 2}
 --- !u!1 &1401251459658287386
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +261,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveData: {fileID: 11400000, guid: 2920be906ea1aad4a9827910a4e0f472, type: 2}
   _sprites: {fileID: 11400000, guid: 56c2e8a5243a4884e9d52bda20675a22, type: 2}
-  nextBodyBlock: {fileID: 0}
 --- !u!61 &1401251459658287381
 BoxCollider2D:
   m_ObjectHideFlags: 0

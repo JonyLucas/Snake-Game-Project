@@ -25,7 +25,11 @@ namespace Game.ScriptableObjects.Events
 
         public void OnOcurred()
         {
-            _listeners.ForEach(listener => listener.OnEventOccurs());
+            var listernersCount = _listeners.Count;
+            for (int i = 0; i < listernersCount; i++)
+            {
+                _listeners[i].OnEventOccurs();
+            }
         }
     }
 }

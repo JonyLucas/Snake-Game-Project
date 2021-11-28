@@ -1,4 +1,5 @@
 using Game.Player.Movement;
+using Game.ScriptableObjects.Events;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -9,6 +10,9 @@ public class SnakeHealth : MonoBehaviour
 
     [SerializeField]
     private GameObject _bodyBlockPrefab;
+
+    [SerializeField]
+    private GameEvent _event;
 
     private void Awake()
     {
@@ -21,6 +25,7 @@ public class SnakeHealth : MonoBehaviour
         {
             if (collision.gameObject != _baseMovementScript.NextBodyBlock)
             {
+                _event.OnOcurred();
                 Destroy(gameObject.transform.parent.gameObject);
             }
         }

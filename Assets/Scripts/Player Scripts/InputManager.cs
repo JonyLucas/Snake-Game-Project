@@ -15,6 +15,11 @@ public class InputManager : MonoBehaviour
 
     private GameObject _snakeHead;
 
+    [SerializeField]
+    private GameObject _snakePrefab;
+
+    private bool _isGameOver = false;
+
     private void Awake()
     {
         _playerControl.Commands
