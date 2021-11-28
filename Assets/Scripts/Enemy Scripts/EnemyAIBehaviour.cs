@@ -35,20 +35,20 @@ namespace Game.Enemy.AI
             InvokeRepeating("StartBehaviour", _stopMoveRate, _stopMoveRate);
         }
 
-        public void SetDestination(GameObject collectable)
+        public void SetDestination(GameObject newTarget)
         {
             if (_target == null || !_target.activeInHierarchy)
             {
-                _target = collectable;
+                _target = newTarget;
             }
             else
             {
                 // Sets the target to the nearest collectable
                 var distanceTarget = transform.position - _target.transform.position;
-                var distanceCollectable = transform.position - collectable.transform.position;
+                var distanceCollectable = transform.position - newTarget.transform.position;
                 if (distanceTarget.magnitude > distanceCollectable.magnitude)
                 {
-                    _target = collectable;
+                    _target = newTarget;
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace Game.Enemy.AI
 
         private Vector2 CalculateDirection()
         {
-            var distance = transform.position - _target.transform.position;
+            var distance = _target.transform.position - transform.position;
             var distance2d = new Vector2(distance.x, distance.y);
             return distance2d.GetProminentVectorComponent();
         }

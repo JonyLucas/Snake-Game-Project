@@ -45,7 +45,6 @@ namespace Game.Player.Movement
         {
             // Gets the tag of the root GameObject that compose the snake
             _snakeTag = transform.parent.tag;
-            Debug.Log(_snakeTag);
 
             if (nextBlock == null)
             {
