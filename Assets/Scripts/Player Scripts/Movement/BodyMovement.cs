@@ -50,6 +50,10 @@ namespace Game.Player.Movement
 
         public override void SetNextBodyBlock(GameObject nextBlock = null)
         {
+            // Gets the tag of the root GameObject that compose the snake
+            _snakeTag = transform.parent.transform.parent.tag;
+            Debug.Log(_snakeTag);
+
             if (nextBlock != null)
             {
                 nextBodyBlock = nextBlock;

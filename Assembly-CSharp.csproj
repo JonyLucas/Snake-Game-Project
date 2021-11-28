@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,13 +53,10 @@
     <UnityVersion>2021.1.28f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="D:\Arquivos de Programas\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Assets\Scripts\Commands\MoveCommands\TurnDownCommand.cs" />
     <Compile Include="Assets\Scripts\Commands\MoveCommands\TurnRightCommand.cs" />
     <Compile Include="Assets\Scripts\Commands\MoveCommands\TurnUpCommand.cs" />
-    <Compile Include="Assets\Scripts\Collectables\FoodBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Collectables\FoodCollectable.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Scriptable Objects\Player Data\PlayerStatus.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\Movement\BaseMovement.cs" />
@@ -70,7 +67,7 @@
     <Compile Include="Assets\Scripts\Player Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\Scriptable Objects\Player Data\PlayerMoveData.cs" />
     <Compile Include="Assets\Scripts\UI\ScoreManager.cs" />
-    <Compile Include="Assets\Scripts\AI\EnemyAIBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Enemy Scripts\EnemyAIBehaviour.cs" />
     <Compile Include="Assets\Scripts\Scriptable Objects\Events\GenericGameEvent.cs" />
     <Compile Include="Assets\Scripts\Observers\EventListener.cs" />
     <Compile Include="Assets\Scripts\Scriptable Objects\Events\GameEvent.cs" />
@@ -90,6 +87,8 @@
     <Compile Include="Assets\Scripts\Observers\GameObjectListener.cs" />
     <Compile Include="Assets\Scripts\Scene\Spawner\BaseSpawner.cs" />
     <Compile Include="Assets\Scripts\Commands\MoveCommands\TurnLeftCommand.cs" />
+    <Compile Include="Assets\Scripts\Collectables\ArmorCollectable.cs" />
+    <Compile Include="Assets\Scripts\Collectables\ResetTimeCollectable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

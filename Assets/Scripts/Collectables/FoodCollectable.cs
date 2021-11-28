@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.Collectables
 {
-    public class FoodBehaviour : BaseCollectableBehaviour
+    public class FoodCollectable : BaseCollectableBehaviour
     {
         protected override void PerformAction(GameObject otherGameObject)
         {

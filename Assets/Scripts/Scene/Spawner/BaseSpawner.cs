@@ -15,7 +15,10 @@ namespace Game.Spawner
         private GameObjectEvent _spawnEvent;
 
         protected float spwanTime;
+
+        [SerializeField]
         protected bool spawnCondition = false;
+
         protected GameObject spawnObjectPrefab;
         protected int instancesLimit;
         protected float xLimit;
@@ -43,6 +46,7 @@ namespace Game.Spawner
         public void SetSpawnCondition(bool conditionValue)
         {
             spawnCondition = conditionValue;
+            instances.ToList().ForEach(x => x.SetActive(false));
         }
 
         private void InitilizeObjectPooling()

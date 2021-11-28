@@ -1,6 +1,5 @@
 using Game.Player.Movement;
 using Game.ScriptableObjects.Events;
-using System.Collections;
 using System.Linq;
 using UnityEngine;
 
