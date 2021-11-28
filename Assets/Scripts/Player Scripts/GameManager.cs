@@ -1,4 +1,6 @@
 using Game.ScriptableObjects;
+using Game.Spawner;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -21,6 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Vector3 _initialPlayer2Position;
 
+    [SerializeField]
+    private GameObject _spawner;
+
     private bool _isGameOver = false;
 
     public void StartGame(bool isMultiplayer)
@@ -30,6 +35,7 @@ public class GameManager : MonoBehaviour
         {
             CreatePlayer(false);
         }
+        ActivateSpawner();
     }
 
     private void CreatePlayer(bool isPlayer1)
@@ -48,5 +54,12 @@ public class GameManager : MonoBehaviour
         var inputManager = new GameObject("InputManager");
         inputManager.AddComponent<InputManager>();
         return Instantiate(inputManager, transform);
+    }
+
+    private void ActivateSpawner()
+    {
+        _spawner.GetComponents<BaseSpawner>()
+            .ToList()
+            .ForEach(spwaner => spwaner.SetSpawnCondition(true));
     }
 }
