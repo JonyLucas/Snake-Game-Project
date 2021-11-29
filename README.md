@@ -2,6 +2,14 @@
 A Snake game, where the player have a block to pick and an enemy AI snake to dispute that block. Both the block and the enemy snake respawn when they are picked or dead, as long as the player is alive.
 When a block is picked by a snake, it is added to the snake body, becoming its head. Multiple blocks can be picked at once if they are inline in the same direction of the snake's movement.
 
+Game Demo
+-----
+SinglePlayer
+https://user-images.githubusercontent.com/19211058/143821095-16d37ebe-6035-4bb7-98e2-e8271926ab6f.mp4
+
+
+Multiplayer
+https://user-images.githubusercontent.com/19211058/143821243-59877b1c-99c5-4373-86d9-3636a8065065.mp4
 
 Arquitetural diagram
 -----
