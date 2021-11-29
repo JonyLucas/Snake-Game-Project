@@ -32,7 +32,7 @@ https://user-images.githubusercontent.com/19211058/143821243-59877b1c-99c5-4373-
 
 Architecture diagram
 -----
-![Diagrama de arquitetura](https://user-images.githubusercontent.com/19211058/143820193-00c38b45-cd49-4c15-9f4b-57ada99735ac.png)
+![Diagrama de arquitetura](https://user-images.githubusercontent.com/19211058/143924323-672e6b4c-5a95-42a1-8478-157a676c2be6.png)
 
 
 The sprites
