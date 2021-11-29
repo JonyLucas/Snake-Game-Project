@@ -32,12 +32,6 @@ Arquitetural diagram
 -----
 ![Diagrama de arquitetura](https://user-images.githubusercontent.com/19211058/143820193-00c38b45-cd49-4c15-9f4b-57ada99735ac.png)
 
-Screeshots
------
-![image](https://user-images.githubusercontent.com/19211058/143822562-8d1a57f7-a230-43d4-a68d-771a473e22ff.png)
-![image](https://user-images.githubusercontent.com/19211058/143822675-b007823e-18c1-40f6-b0d3-cdcf78e9af4e.png)
-![image](https://user-images.githubusercontent.com/19211058/143823309-d77bacac-ac30-4a81-8df9-cc8c8acf3d28.png)
-
 
 The sprites
 -----
