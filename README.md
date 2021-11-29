@@ -10,6 +10,7 @@ the snakes
 
 
 the collectables
+
 ![Food - MD](https://user-images.githubusercontent.com/19211058/143822380-4744a524-35a3-4402-a63f-3eaf315cbaee.png)
 ![Reset Position - MD](https://user-images.githubusercontent.com/19211058/143822398-93d5ae91-71c4-4d32-83b9-9b33c2d86862.png)
 ![Shield Collectable - MD](https://user-images.githubusercontent.com/19211058/143822403-4e89e5ef-0e11-45fa-9060-879d09af0339.png)
