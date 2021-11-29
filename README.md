@@ -10,11 +10,9 @@ the snakes
 
 
 the collectables
-
-![Food - MD](https://user-images.githubusercontent.com/19211058/143822185-5158f7d4-9a3f-41e8-b875-a48c0fce8b70.png)
-![Reset Position - MD](https://user-images.githubusercontent.com/19211058/143822194-aaa49496-b502-4379-bf52-5d2e3af5e0c3.png)
-
-![Shield Collectable](https://user-images.githubusercontent.com/19211058/143821733-07441e7c-be18-47fe-91a3-1f7ab92e1365.png)
+![Food - MD](https://user-images.githubusercontent.com/19211058/143822380-4744a524-35a3-4402-a63f-3eaf315cbaee.png)
+![Reset Position - MD](https://user-images.githubusercontent.com/19211058/143822398-93d5ae91-71c4-4d32-83b9-9b33c2d86862.png)
+![Shield Collectable - MD](https://user-images.githubusercontent.com/19211058/143822403-4e89e5ef-0e11-45fa-9060-879d09af0339.png)
 
 
 Game Demo
