@@ -161,7 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bodyBlockPrefab: {fileID: 2004648392446483777, guid: 9b91d1c27fcf69e4ea472a4b1bac5692, type: 3}
-  _event: {fileID: 11400000, guid: 1ae14f2f7dc1a604282a46a8e3a848e8, type: 2}
+  _gameOverSPEvent: {fileID: 11400000, guid: 1ae14f2f7dc1a604282a46a8e3a848e8, type: 2}
+  _gameOverMPEvent: {fileID: 11400000, guid: 6e0bce8e69969c9448ed48722e2bf578, type: 2}
 --- !u!1 &7469073726219333386
 GameObject:
   m_ObjectHideFlags: 0

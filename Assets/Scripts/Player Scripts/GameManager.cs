@@ -3,6 +3,7 @@ using Game.ScriptableObjects;
 using Game.Spawner;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,7 +29,6 @@ public class GameManager : MonoBehaviour
         {
             CreatePlayer(false);
         }
-        ActivateSpawner(true);
     }
 
     private void CreatePlayer(bool isPlayer1)
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
         var prefab = isPlayer1 ? _snakePrefab : _snake2Prefab;
         var control = isPlayer1 ? _playerControl : _player2Control;
         var snake = Instantiate(prefab);
+        snake.name = isPlayer1 ? "Player 1" : "Player 2";
 
         inputManager.GetComponent<InputManager>().SetHeadAndControl(snake, control);
     }
@@ -48,6 +49,25 @@ public class GameManager : MonoBehaviour
         return Instantiate(inputManager, transform);
     }
 
+    public void GameOver()
+    {
+        // Destroy the input managers.
+        DestroyInputManagers();
+
+        // Disables the collectables and the spawner
+        ActivateSpawner(false);
+    }
+
+    private void DestroyInputManagers()
+    {
+        var components = transform.GetComponentsInChildren<InputManager>();
+        var count = components.Count();
+        for (int i = 0; i < count; i++)
+        {
+            Destroy(components[i].gameObject);
+        }
+    }
+
     private void ActivateSpawner(bool activate)
     {
         _spawner.GetComponents<BaseSpawner>()
@@ -55,9 +75,8 @@ public class GameManager : MonoBehaviour
             .ForEach(spwaner => spwaner.SetSpawnCondition(activate));
     }
 
-    public void GameOver()
+    public void ReloadScene()
     {
-        // Disables the collectables and the spawner
-        ActivateSpawner(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

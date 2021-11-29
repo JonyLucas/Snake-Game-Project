@@ -27,6 +27,11 @@ namespace Game.Spawner
         // Object Pooling
         protected GameObject[] instances;
 
+        // Spawner that instance only one gameObject at time
+        private bool _isOnlyOneActive;
+
+        private GameObject _instance;
+
         private void Start()
         {
             SetData();
@@ -36,6 +41,7 @@ namespace Game.Spawner
 
         protected virtual void SetData()
         {
+            _isOnlyOneActive = spawnerData.IsOnlyOneActive;
             spwanTime = spawnerData.SpawnTime;
             spawnObjectPrefab = spawnerData.SpawnObjectPrefab;
             instancesLimit = spawnerData.InstancesLimit;
@@ -46,12 +52,20 @@ namespace Game.Spawner
         public void SetSpawnCondition(bool conditionValue)
         {
             spawnCondition = conditionValue;
-            instances.ToList().ForEach(x => x.SetActive(false));
+            if (instances != null && !conditionValue)
+            {
+                instances.ToList().ForEach(x => x.SetActive(false));
+            }
+
+            if (_instance != null && !conditionValue)
+            {
+                Destroy(_instance.gameObject);
+            }
         }
 
         private void InitilizeObjectPooling()
         {
-            if (instancesLimit == 0)
+            if (_isOnlyOneActive)
             {
                 return;
             }
@@ -87,21 +101,25 @@ namespace Game.Spawner
             newPosition.x = Random.Range(-xLimit, xLimit);
             newPosition.y = Random.Range(-yLimit, yLimit);
 
-            if (instances != null)
+            if (!_isOnlyOneActive)
             {
-                var instance = instances.FirstOrDefault(x => !x.activeInHierarchy); //It would be useful to use null propagation, but Unity advises to not use it.
-                if (instance != null)
+                _instance = instances.FirstOrDefault(x => !x.activeInHierarchy); //It would be useful to use null propagation, but Unity advises to not use it.
+                if (_instance != null)
                 {
-                    instance.SetActive(true);
-                    instance.transform.position = newPosition;
-                    _spawnEvent.OnOcurred(instance);
+                    _instance.SetActive(true);
+                    _instance.transform.position = newPosition;
+                    _spawnEvent.OnOcurred(_instance);
                 }
             }
             else
             {
-                var instance = Instantiate(spawnObjectPrefab, newPosition, Quaternion.identity);
-                _spawnEvent.OnOcurred(instance);
+                if(_instance == null)
+                {
+                    _instance = Instantiate(spawnObjectPrefab, newPosition, Quaternion.identity);
+                    _spawnEvent.OnOcurred(_instance);
+                }
             }
+
         }
     }
 }

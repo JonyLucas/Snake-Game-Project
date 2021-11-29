@@ -57,6 +57,7 @@
     <Compile Include="Assets\Scripts\Commands\MoveCommands\TurnRightCommand.cs" />
     <Compile Include="Assets\Scripts\Commands\MoveCommands\TurnUpCommand.cs" />
     <Compile Include="Assets\Scripts\Collectables\FoodCollectable.cs" />
+    <Compile Include="Assets\Scripts\Collectables\ResetTimeCollectable.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Scriptable Objects\Player Data\PlayerStatus.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\Movement\BaseMovement.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Assets\Scripts\Scene\Spawner\RandomTimeSpawner.cs" />
     <Compile Include="Assets\Scripts\Scriptable Objects\Player Data\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\Scriptable Objects\Events\GameObjectEvent.cs" />
+    <Compile Include="Assets\Scripts\Collectables\ArmorCollectable.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\Scriptable Objects\Player Data\PlayerMoveData.cs" />
     <Compile Include="Assets\Scripts\UI\ScoreManager.cs" />
@@ -87,8 +89,9 @@
     <Compile Include="Assets\Scripts\Observers\GameObjectListener.cs" />
     <Compile Include="Assets\Scripts\Scene\Spawner\BaseSpawner.cs" />
     <Compile Include="Assets\Scripts\Commands\MoveCommands\TurnLeftCommand.cs" />
-    <Compile Include="Assets\Scripts\Collectables\ArmorCollectable.cs" />
-    <Compile Include="Assets\Scripts\Collectables\ResetTimeCollectable.cs" />
+    <Compile Include="Assets\Scripts\Commands\Powerups\ShieldCommand.cs" />
+    <Compile Include="Assets\Scripts\Commands\Powerups\ResetTimeCommand.cs" />
+    <Compile Include="Assets\Scripts\UI\WinnerText.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

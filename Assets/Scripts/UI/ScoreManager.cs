@@ -2,33 +2,36 @@ using Game.Collectables;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviour
+namespace Game.UI
 {
-    private int _currentScore;
-
-    private Text _textComponent;
-
-    private void Start()
+    public class ScoreManager : MonoBehaviour
     {
-        _currentScore = 0;
-        _textComponent = GetComponent<Text>();
-        UpdateText();
-    }
+        private int _currentScore;
 
-    public void UpdateScore(BaseCollectableBehaviour collactableScript)
-    {
-        _currentScore += collactableScript.ScoreValue;
-        UpdateText();
-    }
+        private Text _textComponent;
 
-    public void ResetScore()
-    {
-        _currentScore = 0;
-        UpdateText();
-    }
+        private void Start()
+        {
+            _currentScore = 0;
+            _textComponent = GetComponent<Text>();
+            UpdateText();
+        }
 
-    private void UpdateText()
-    {
-        _textComponent.text = $"Score: {_currentScore}";
+        public void UpdateScore(BaseCollectableBehaviour collactableScript)
+        {
+            _currentScore += collactableScript.ScoreValue;
+            UpdateText();
+        }
+
+        public void ResetScore()
+        {
+            _currentScore = 0;
+            UpdateText();
+        }
+
+        private void UpdateText()
+        {
+            _textComponent.text = $"Score: {_currentScore}";
+        }
     }
 }

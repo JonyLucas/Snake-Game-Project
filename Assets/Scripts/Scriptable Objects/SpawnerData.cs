@@ -10,6 +10,9 @@ namespace Game.ScriptableObjects
     public class SpawnerData : ScriptableObject
     {
         [SerializeField]
+        private bool _isOnlyOneActive;
+
+        [SerializeField]
         protected float _spwanTime = 1;
 
         [SerializeField]
@@ -29,6 +32,9 @@ namespace Game.ScriptableObjects
 
         [SerializeField]
         private float _maxTimeRange;
+
+        public bool IsOnlyOneActive
+        { get { return _isOnlyOneActive; } }
 
         public float SpawnTime
         { get { return _spwanTime; } }
