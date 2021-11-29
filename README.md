@@ -2,6 +2,15 @@
 A Snake game, where the player have a block to pick and an enemy AI snake to dispute that block. Both the block and the enemy snake respawn when they are picked or dead, as long as the player is alive.
 When a block is picked by a snake, it is added to the snake body, becoming its head. Multiple blocks can be picked at once if they are inline in the same direction of the snake's movement.
 
+## Movement
+The movement is relative to the direction the snake is moving -- i.e., pressing left makes the snake turn 90 degrees to its left -- and the snake can't go straight back in one turn, must make two turns in the same direction.
+
+## Multiplayer
+The game have a local multiplayer for two players, where each player controls a snake.
+
+## Powerups [WIP]
+The player can collect specials objects that provides temporary invulnerability and the ability to reset position when the player dies, giving an extra life for the player.
+
 Game Demo
 -----
 SinglePlayer
