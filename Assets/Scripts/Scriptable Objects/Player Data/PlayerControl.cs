@@ -1,5 +1,6 @@
 using Game.Commands;
 using Game.Commands.MoveCommands;
+using Game.Commands.Powerups;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,9 @@ namespace Game.ScriptableObjects
 
         [SerializeField]
         private TurnRightCommand _turnRightCommand;
+
+        [SerializeField]
+        private ShieldCommand _shieldCommand;
 
         private readonly List<BaseCommand> _commands = new List<BaseCommand>();
 
@@ -40,6 +44,7 @@ namespace Game.ScriptableObjects
             _commands.Add(_turnUpCommand);
             _commands.Add(_turnLeftCommand);
             _commands.Add(_turnRightCommand);
+            _commands.Add(_shieldCommand);
         }
     }
 }

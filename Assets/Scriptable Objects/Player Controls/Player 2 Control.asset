@@ -20,3 +20,5 @@ MonoBehaviour:
     _associatedKey: 276
   _turnRightCommand:
     _associatedKey: 275
+  _shieldCommand:
+    _associatedKey: 256

@@ -10,6 +10,7 @@ TagManager:
   - SnakeTail
   - Collectable
   - EnemySnake
+  - Shield
   layers:
   - Default
   - TransparentFX

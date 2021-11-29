@@ -19,8 +19,11 @@ namespace Game.UI
 
         public void UpdateScore(BaseCollectableBehaviour collactableScript)
         {
-            _currentScore += collactableScript.ScoreValue;
-            UpdateText();
+            if (collactableScript.GetType() == typeof(FoodCollectable))
+            {
+                _currentScore += ((FoodCollectable)collactableScript).ScoreValue;
+                UpdateText();
+            }
         }
 
         public void ResetScore()

@@ -21,6 +21,15 @@ namespace Game.Player
 
         private bool _isMultiplayer;
 
+        private bool _hasShield = false;
+        private bool _isInvulnarable = false;
+
+        [SerializeField]
+        private float _shieldTime = 10;
+
+        [SerializeField]
+        private GameObject _shieldObject;
+
         private void Start()
         {
             _baseMovementScript = GetComponent<HeadMovement>();
@@ -33,24 +42,32 @@ namespace Game.Player
             {
                 if (collision.gameObject != _baseMovementScript.NextBodyBlock)
                 {
-                    if (_isMultiplayer)
+                    if (!_isInvulnarable)
                     {
-                        if (_gameOverMPEvent != null)
-                        {
-                            _gameOverMPEvent.OnOcurred(this.gameObject);
-                        }
+                        SnakeDeath();
                     }
-                    else
-                    {
-                        if (_gameOverSPEvent != null)
-                        {
-                            _gameOverSPEvent.OnOcurred();
-                        }
-                    }
-
-                    Destroy(gameObject.transform.parent.gameObject);
                 }
             }
+        }
+
+        private void SnakeDeath()
+        {
+            if (_isMultiplayer)
+            {
+                if (_gameOverMPEvent != null)
+                {
+                    _gameOverMPEvent.OnOcurred(this.gameObject);
+                }
+            }
+            else
+            {
+                if (_gameOverSPEvent != null)
+                {
+                    _gameOverSPEvent.OnOcurred();
+                }
+            }
+
+            Destroy(gameObject.transform.parent.gameObject);
         }
 
         public void SpawnBodyBlock()
@@ -62,6 +79,29 @@ namespace Game.Player
             var newBlock = Instantiate(_bodyBlockPrefab, snakeBodyObject);
             newBlock.SetActive(false);
             _baseMovementScript.SetNextBodyBlock(newBlock);
+        }
+
+        public void AcquiredShield()
+        {
+            _hasShield = true;
+        }
+
+        public void EnableShield()
+        {
+            if (_hasShield && _shieldObject != null)
+            {
+                _hasShield = false;
+                StartCoroutine(TemporaryInvulnerability());
+            }
+        }
+
+        private IEnumerator TemporaryInvulnerability()
+        {
+            _isInvulnarable = true;
+            _shieldObject.SetActive(true);
+            yield return new WaitForSeconds(_shieldTime);
+            _isInvulnarable = false;
+            _shieldObject.SetActive(false);
         }
     }
 }
