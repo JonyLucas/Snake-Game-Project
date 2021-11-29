@@ -5,7 +5,8 @@ When a block is picked by a snake, it is added to the snake body, becoming its h
 The sprites
 -----
 the snakes
-![Entire Snake](https://user-images.githubusercontent.com/19211058/143821691-f51ca1a0-380a-48ae-837d-3cd9827c6167.png)
+![Entire Snake](https://user-images.githubusercontent.com/19211058/143821824-91ccde40-c40f-44b1-9aad-fceaf9f13dc5.png)
+
 
 the collectables
 ![Food](https://user-images.githubusercontent.com/19211058/143821717-71c6bb50-41cc-450f-b885-61a85ee7ee94.png)
