@@ -11,6 +11,14 @@ The game have a local multiplayer for two players, where each player controls a 
 ### Powerups [WIP]
 The player can collect specials objects that provides temporary invulnerability and the ability to reset position when the player dies, giving an extra life for the player.
 
+Post Processing
+-----
+If you want to use the game with Post Processing, you should switch to the PostProcessing branch.
+Here's a video of the game with Post Processing.
+
+https://user-images.githubusercontent.com/19211058/143838839-1dcdfdcf-b733-49fb-8471-bc2870f11d66.mp4
+
+
 Game Demo
 -----
 SinglePlayer
